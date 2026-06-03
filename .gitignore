@@ -126,3 +126,8 @@ data/cache/
 Thumbs.db
 .vscode/
 .idea/
+
+# Generated local artifacts
+data/feature_store_offline/
+data/online_store/
+models/

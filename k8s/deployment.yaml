@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-risk-api
+  labels:
+    app: payment-risk-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-risk-api
+  template:
+    metadata:
+      labels:
+        app: payment-risk-api
+    spec:
+      containers:
+        - name: api
+          image: payment-risk-api:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PAYMENT_RISK_ENV
+              value: "local-reference"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
