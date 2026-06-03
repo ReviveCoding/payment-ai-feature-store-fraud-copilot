@@ -95,3 +95,34 @@ data/cache/
 Thumbs.db
 .vscode/
 .idea/
+
+# Local Python environment
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+*.pyd
+
+# Large/raw datasets
+data/raw/
+data/cache/
+*.zip
+*.7z
+*.gz
+*.parquet
+*.pkl
+*.joblib
+
+# Local secrets / credentials
+.env
+.aws/
+*.pem
+*.key
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
