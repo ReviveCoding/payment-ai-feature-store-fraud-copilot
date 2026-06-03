@@ -3,11 +3,11 @@
 local_optional_paths:
   iso20022_zip: ""
   cfpb_7z: null
-  cfpb_csv: "C:/Users/bjw-0/Downloads/payment-ai-feature-store-fraud-copilot/data/raw/cfpb/cfpb_complaints_narratives.csv"
-  paysim_csv: "C:/Users/bjw-0/Downloads/payment-ai-feature-store-fraud-copilot/data/raw/paysim/PS_20174392719_1491204439457_log.csv"
-  baf_csv: "C:/Users/bjw-0/Downloads/payment-ai-feature-store-fraud-copilot/data/raw/baf/Base.csv"
-  ieee_cis_transaction_csv: "C:/Users/bjw-0/Downloads/payment-ai-feature-store-fraud-copilot/data/raw/ieee_cis/train_transaction.csv"
-  ieee_cis_identity_csv: "C:/Users/bjw-0/Downloads/payment-ai-feature-store-fraud-copilot/data/raw/ieee_cis/train_identity.csv"
+  cfpb_csv: "data/raw/cfpb/cfpb_complaints_narratives.csv"
+  paysim_csv: "data/raw/paysim/PS_20174392719_1491204439457_log.csv"
+  baf_csv: "data/raw/baf/Base.csv"
+  ieee_cis_transaction_csv: "data/raw/ieee_cis/train_transaction.csv"
+  ieee_cis_identity_csv: "data/raw/ieee_cis/train_identity.csv"
 
 external_downloads_required: false
 
