@@ -1,0 +1,80 @@
+{
+  "amount": {
+    "max_missing_rate": 0.2,
+    "expected_min": 14.24292,
+    "expected_max": 643418.6286000095,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "amount_log": {
+    "max_missing_rate": 0.2,
+    "expected_min": 2.724111261680604,
+    "expected_max": 13.374433825529914,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "cross_border_flag": {
+    "max_missing_rate": 0.2,
+    "expected_min": 0.0,
+    "expected_max": 1.0,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "rule_risk_prior": {
+    "max_missing_rate": 0.2,
+    "expected_min": 0.1978161114414182,
+    "expected_max": 0.5866175789173301,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "txn_count_prior": {
+    "max_missing_rate": 0.2,
+    "expected_min": 0.0,
+    "expected_max": 315.0,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "amount_sum_prior": {
+    "max_missing_rate": 0.2,
+    "expected_min": 0.0,
+    "expected_max": 45447.000000000015,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "failed_txn_rate_prior": {
+    "max_missing_rate": 0.2,
+    "expected_min": 0.0,
+    "expected_max": 0.25,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "amount_zscore_account": {
+    "max_missing_rate": 0.2,
+    "expected_min": -0.019249302429484354,
+    "expected_max": 4.762853153615226,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "new_device_flag": {
+    "max_missing_rate": 0.2,
+    "expected_min": 0.0,
+    "expected_max": 1.0,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "new_beneficiary_flag": {
+    "max_missing_rate": 0.2,
+    "expected_min": 0.0,
+    "expected_max": 1.0,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "high_risk_corridor_flag": {
+    "max_missing_rate": 0.2,
+    "expected_min": 0.0,
+    "expected_max": 1.0,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "rejected_flag": {
+    "max_missing_rate": 0.2,
+    "expected_min": 0.0,
+    "expected_max": 0.0,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  },
+  "processing_time_secs": {
+    "max_missing_rate": 0.2,
+    "expected_min": 0.0,
+    "expected_max": 13.889800000000024,
+    "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "first_rows": 6250,
+  "second_rows": 6250,
+  "first_hash": "c66bb4b99109f7a07962854b7bc1f6de0c4e3f2e5fe73575b012a6af61f42e72",
+  "second_hash": "c66bb4b99109f7a07962854b7bc1f6de0c4e3f2e5fe73575b012a6af61f42e72",
+  "rule": "A deterministic rerun over the same inputs should produce identical feature hashes and row counts."
+}

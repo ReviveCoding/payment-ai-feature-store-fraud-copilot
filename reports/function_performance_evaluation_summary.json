@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "checks": {
+    "core_reports_present": "10/10",
+    "model_registry_present": true,
+    "release_decision_detected": true,
+    "ablation_metrics_detected": true,
+    "feature_store_validation_detected": true,
+    "data_quality_checks_detected": true
+  },
+  "blocking_items": [],
+  "core_reports": {
+    "feature_store_validation_report.md": true,
+    "baseline_vs_specialty_ablation_report.md": true,
+    "model_selection_report.md": true,
+    "kpi_policy_readout.md": true,
+    "release_decision.md": true,
+    "data_quality_and_backfill_report.md": true,
+    "model_monitoring_baseline_report.md": true,
+    "drift_monitoring_report.md": true,
+    "explainability_report.md": true,
+    "batch_scoring_contract_report.md": true
+  }
+}

@@ -1,0 +1,44 @@
+feature_groups:
+  account_velocity:
+    entity_key: account_id_hash
+    event_time: event_time
+    features:
+      - txn_count_prior
+      - amount_sum_prior
+      - failed_txn_rate_prior
+      - amount_zscore_account
+  device_behavior:
+    entity_key: device_id_hash
+    event_time: event_time
+    features:
+      - new_device_flag
+      - device_seen_count_prior
+  counterparty_risk:
+    entity_key: counterparty_id_hash
+    event_time: event_time
+    features:
+      - new_beneficiary_flag
+      - counterparty_seen_count_prior
+      - high_risk_corridor_flag
+  status_transition:
+    entity_key: event_id
+    event_time: event_time
+    features:
+      - rejected_flag
+      - processing_time_secs
+      - retry_count_proxy
+  model_inputs:
+    entity_key: event_id
+    event_time: event_time
+    features:
+      - amount
+      - amount_log
+      - cross_border_flag
+      - rule_risk_prior
+      - txn_count_prior
+      - amount_sum_prior
+      - failed_txn_rate_prior
+      - new_device_flag
+      - new_beneficiary_flag
+      - high_risk_corridor_flag
+      - rejected_flag

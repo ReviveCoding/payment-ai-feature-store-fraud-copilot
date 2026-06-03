@@ -1,0 +1,9 @@
+scenarios:
+  vanilla_fixed_threshold:
+    description: baseline model with fixed threshold
+  calibrated_threshold:
+    description: calibrated score with approve/review/block policy
+  residual_corrected:
+    description: mechanism-informed residual correction score
+  envelope_pruned:
+    description: high-recall risk envelope with bias-corrected pruning

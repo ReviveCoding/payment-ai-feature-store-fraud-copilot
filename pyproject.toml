@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "payment-ai-feature-store-fraud-copilot"
+version = "0.2.0"
+description = "Local-runnable AWS-patterned payment fraud-risk ML lifecycle framework with feature-store, model governance, and GenAI investigation artifacts."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Jinwoo Bae" }]
+keywords = ["payments", "fraud", "feature-store", "mlops", "risk", "sagemaker-compatible"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+exclude = ["tests*", "reports*", "outputs*", "data*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120

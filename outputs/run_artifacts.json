@@ -1,0 +1,1446 @@
+{
+  "schema_validation": {
+    "rows": 6250,
+    "missing_required_columns": [],
+    "required_null_rates": {
+      "dataset_source": 0.0,
+      "event_id": 0.0,
+      "event_time": 0.0,
+      "account_id_hash": 0.0,
+      "counterparty_id_hash": 0.02752,
+      "amount": 0.0,
+      "currency": 0.0,
+      "channel": 0.0,
+      "payment_type": 0.0,
+      "payment_status": 0.0,
+      "risk_label": 0.0
+    },
+    "valid": true
+  },
+  "public_benchmark_status": {
+    "loaded_sources": [
+      {
+        "source": "paysim_public",
+        "path": "C:/Users/bjw-0/Downloads/payment-ai-feature-store-fraud-copilot/data/raw/paysim/PS_20174392719_1491204439457_log.csv",
+        "rows": 1250
+      },
+      {
+        "source": "baf_public",
+        "path": "C:/Users/bjw-0/Downloads/payment-ai-feature-store-fraud-copilot/data/raw/baf/Base.csv",
+        "rows": 1250
+      },
+      {
+        "source": "ieee_cis_public",
+        "path": "C:/Users/bjw-0/Downloads/payment-ai-feature-store-fraud-copilot/data/raw/ieee_cis/train_transaction.csv",
+        "rows": 1250
+      }
+    ],
+    "skipped_sources": [],
+    "max_rows_per_source": 1250
+  },
+  "nlp_smoke": {
+    "status": "SKIPPED",
+    "reason": "no multi-class routing label found",
+    "transformers_available": false
+  },
+  "feature_validation": {
+    "row_count": 6250,
+    "label_rate": 0.04352,
+    "feature_null_rate_max": 0.0,
+    "event_time_min": "1970-01-01 00:00:00.000086400",
+    "event_time_max": "2025-03-01 23:10:00",
+    "partition_columns": [
+      "dataset_source",
+      "event_date"
+    ]
+  },
+  "pit_validation": {
+    "point_in_time_valid": true,
+    "checked_rows": 6250,
+    "rule": "txn_count_prior equals number of prior events within account"
+  },
+  "parity": {
+    "matched_accounts": 1899,
+    "event_match_rate": 1.0,
+    "max_rule_prior_diff": 0.0,
+    "parity_pass": true
+  },
+  "offline_manifest": {
+    "format": "csv_fallback_parquet_recommended",
+    "partitions": [
+      {
+        "dataset_source": "baf_public",
+        "event_date": "2025-01-01",
+        "path": "dataset_source=baf_public\\event_date=2025-01-01\\features.csv",
+        "rows": 1250
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-01",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-01\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-02",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-02\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-03",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-03\\features.csv",
+        "rows": 17
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-04",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-04\\features.csv",
+        "rows": 16
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-05",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-05\\features.csv",
+        "rows": 17
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-06",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-06\\features.csv",
+        "rows": 24
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-07",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-07\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-08",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-08\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-09",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-09\\features.csv",
+        "rows": 26
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-10",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-10\\features.csv",
+        "rows": 20
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-11",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-11\\features.csv",
+        "rows": 15
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-12",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-12\\features.csv",
+        "rows": 17
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-13",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-13\\features.csv",
+        "rows": 11
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-14",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-14\\features.csv",
+        "rows": 14
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-15",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-15\\features.csv",
+        "rows": 20
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-16",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-16\\features.csv",
+        "rows": 16
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-17",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-17\\features.csv",
+        "rows": 17
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-18",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-18\\features.csv",
+        "rows": 20
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-19",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-19\\features.csv",
+        "rows": 24
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-20",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-20\\features.csv",
+        "rows": 23
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-21",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-21\\features.csv",
+        "rows": 26
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-22",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-22\\features.csv",
+        "rows": 16
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-23",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-23\\features.csv",
+        "rows": 8
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-24",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-24\\features.csv",
+        "rows": 18
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-25",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-25\\features.csv",
+        "rows": 21
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-26",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-26\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-27",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-27\\features.csv",
+        "rows": 16
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-28",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-28\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-29",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-29\\features.csv",
+        "rows": 19
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-30",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-30\\features.csv",
+        "rows": 21
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-01-31",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-01-31\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-01",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-01\\features.csv",
+        "rows": 15
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-02",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-02\\features.csv",
+        "rows": 17
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-03",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-03\\features.csv",
+        "rows": 20
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-04",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-04\\features.csv",
+        "rows": 13
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-05",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-05\\features.csv",
+        "rows": 24
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-06",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-06\\features.csv",
+        "rows": 17
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-07",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-07\\features.csv",
+        "rows": 14
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-08",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-08\\features.csv",
+        "rows": 13
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-09",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-09\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-10",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-10\\features.csv",
+        "rows": 19
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-11",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-11\\features.csv",
+        "rows": 16
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-12",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-12\\features.csv",
+        "rows": 10
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-13",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-13\\features.csv",
+        "rows": 18
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-14",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-14\\features.csv",
+        "rows": 21
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-15",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-15\\features.csv",
+        "rows": 19
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-16",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-16\\features.csv",
+        "rows": 18
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-17",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-17\\features.csv",
+        "rows": 14
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-18",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-18\\features.csv",
+        "rows": 14
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-19",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-19\\features.csv",
+        "rows": 20
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-20",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-20\\features.csv",
+        "rows": 24
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-21",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-21\\features.csv",
+        "rows": 28
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-22",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-22\\features.csv",
+        "rows": 17
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-23",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-23\\features.csv",
+        "rows": 20
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-24",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-24\\features.csv",
+        "rows": 20
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-25",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-25\\features.csv",
+        "rows": 24
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-26",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-26\\features.csv",
+        "rows": 19
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-27",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-27\\features.csv",
+        "rows": 19
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-02-28",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-02-28\\features.csv",
+        "rows": 12
+      },
+      {
+        "dataset_source": "baf_style_sample",
+        "event_date": "2025-03-01",
+        "path": "dataset_source=baf_style_sample\\event_date=2025-03-01\\features.csv",
+        "rows": 19
+      },
+      {
+        "dataset_source": "ieee_cis_public",
+        "event_date": "1970-01-01",
+        "path": "dataset_source=ieee_cis_public\\event_date=1970-01-01\\features.csv",
+        "rows": 1250
+      },
+      {
+        "dataset_source": "paysim_public",
+        "event_date": "2025-01-01",
+        "path": "dataset_source=paysim_public\\event_date=2025-01-01\\features.csv",
+        "rows": 1250
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-01",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-01\\features.csv",
+        "rows": 21
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-02",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-02\\features.csv",
+        "rows": 18
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-03",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-03\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-04",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-04\\features.csv",
+        "rows": 25
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-05",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-05\\features.csv",
+        "rows": 11
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-06",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-06\\features.csv",
+        "rows": 28
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-07",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-07\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-08",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-08\\features.csv",
+        "rows": 26
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-09",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-09\\features.csv",
+        "rows": 23
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-10",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-10\\features.csv",
+        "rows": 33
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-11",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-11\\features.csv",
+        "rows": 31
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-12",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-12\\features.csv",
+        "rows": 17
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-13",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-13\\features.csv",
+        "rows": 20
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-14",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-14\\features.csv",
+        "rows": 14
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-15",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-15\\features.csv",
+        "rows": 33
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-16",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-16\\features.csv",
+        "rows": 19
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-17",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-17\\features.csv",
+        "rows": 24
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-18",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-18\\features.csv",
+        "rows": 28
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-19",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-19\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-20",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-20\\features.csv",
+        "rows": 25
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-21",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-21\\features.csv",
+        "rows": 18
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-22",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-22\\features.csv",
+        "rows": 16
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-23",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-23\\features.csv",
+        "rows": 24
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-24",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-24\\features.csv",
+        "rows": 19
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-25",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-25\\features.csv",
+        "rows": 27
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-26",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-26\\features.csv",
+        "rows": 17
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-27",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-27\\features.csv",
+        "rows": 36
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-28",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-28\\features.csv",
+        "rows": 28
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-29",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-29\\features.csv",
+        "rows": 29
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-30",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-30\\features.csv",
+        "rows": 12
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-01-31",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-01-31\\features.csv",
+        "rows": 21
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-01",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-01\\features.csv",
+        "rows": 34
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-02",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-02\\features.csv",
+        "rows": 24
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-03",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-03\\features.csv",
+        "rows": 23
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-04",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-04\\features.csv",
+        "rows": 18
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-05",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-05\\features.csv",
+        "rows": 19
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-06",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-06\\features.csv",
+        "rows": 21
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-07",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-07\\features.csv",
+        "rows": 23
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-08",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-08\\features.csv",
+        "rows": 27
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-09",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-09\\features.csv",
+        "rows": 25
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-10",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-10\\features.csv",
+        "rows": 21
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-11",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-11\\features.csv",
+        "rows": 17
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-12",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-12\\features.csv",
+        "rows": 21
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-13",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-13\\features.csv",
+        "rows": 24
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-14",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-14\\features.csv",
+        "rows": 36
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-15",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-15\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-16",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-16\\features.csv",
+        "rows": 31
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-17",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-17\\features.csv",
+        "rows": 26
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-18",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-18\\features.csv",
+        "rows": 22
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-19",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-19\\features.csv",
+        "rows": 21
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-20",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-20\\features.csv",
+        "rows": 25
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-21",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-21\\features.csv",
+        "rows": 21
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-22",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-22\\features.csv",
+        "rows": 14
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-23",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-23\\features.csv",
+        "rows": 18
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-24",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-24\\features.csv",
+        "rows": 14
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-25",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-25\\features.csv",
+        "rows": 26
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-26",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-26\\features.csv",
+        "rows": 20
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-27",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-27\\features.csv",
+        "rows": 27
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-02-28",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-02-28\\features.csv",
+        "rows": 24
+      },
+      {
+        "dataset_source": "paysim_style_sample",
+        "event_date": "2025-03-01",
+        "path": "dataset_source=paysim_style_sample\\event_date=2025-03-01\\features.csv",
+        "rows": 25
+      }
+    ],
+    "rows": 6250
+  },
+  "online_meta": {
+    "sqlite_path": "C:\\Users\\bjw-0\\Downloads\\payment-ai-feature-store-fraud-copilot\\data\\online_store\\online_features.sqlite",
+    "rows": 1899,
+    "table": "latest_account_features"
+  },
+  "data_quality": {
+    "status": "PASS",
+    "rows": {
+      "events": 6250,
+      "features": 6250
+    },
+    "null_rates": {
+      "events": {
+        "event_id": 0.0,
+        "event_time": 0.0,
+        "account_id_hash": 0.0,
+        "amount": 0.0,
+        "risk_label": 0.0,
+        "dataset_source": 0.0
+      },
+      "features": {
+        "event_id": 0.0,
+        "event_time": 0.0,
+        "account_id_hash": 0.0,
+        "amount": 0.0,
+        "rule_risk_prior": 0.0,
+        "txn_count_prior": 0.0,
+        "failed_txn_rate_prior": 0.0,
+        "amount_zscore_account": 0.0
+      }
+    },
+    "duplicate_rates": {
+      "events": 0.0,
+      "features": 0.0
+    },
+    "amount_stats": {
+      "min": 1.896,
+      "p50": 424.935,
+      "p95": 140185.8599999985,
+      "max": 3776389.09,
+      "non_positive_rate": 0.0
+    },
+    "source_counts": {
+      "events": {
+        "paysim_style_sample": 1378,
+        "ieee_cis_public": 1250,
+        "baf_public": 1250,
+        "paysim_public": 1250,
+        "baf_style_sample": 1122
+      },
+      "features": {
+        "paysim_style_sample": 1378,
+        "ieee_cis_public": 1250,
+        "baf_public": 1250,
+        "paysim_public": 1250,
+        "baf_style_sample": 1122
+      }
+    },
+    "deterministic_feature_hash": "0b1153b89a525c95f91f9eb08c2845662ad503e6393eb0cc99ddd8f21f2e6118",
+    "checks": {
+      "required_event_columns_present": true,
+      "required_feature_columns_present": true,
+      "event_duplicate_rate_ok": true,
+      "feature_duplicate_rate_ok": true,
+      "event_null_rate_ok": true,
+      "feature_null_rate_ok": true,
+      "amount_values_positive": true,
+      "dataset_sources_present": true,
+      "feature_sources_present": true
+    }
+  },
+  "backfill_idempotence": {
+    "status": "PASS",
+    "first_rows": 6250,
+    "second_rows": 6250,
+    "first_hash": "c66bb4b99109f7a07962854b7bc1f6de0c4e3f2e5fe73575b012a6af61f42e72",
+    "second_hash": "c66bb4b99109f7a07962854b7bc1f6de0c4e3f2e5fe73575b012a6af61f42e72",
+    "rule": "A deterministic rerun over the same inputs should produce identical feature hashes and row counts."
+  },
+  "monitoring_baseline": {
+    "status": "PASS",
+    "baseline_type": "local_model_monitor_style_baseline",
+    "feature_statistics": {
+      "amount": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 33533.22285747813,
+        "std": 155082.82067877523,
+        "p01": 14.24292,
+        "p50": 182.04,
+        "p99": 643418.6286000095
+      },
+      "amount_log": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 6.477521418153609,
+        "std": 2.5835668088708545,
+        "p01": 2.724111261680604,
+        "p50": 5.209704708191433,
+        "p99": 13.374433825529914
+      },
+      "cross_border_flag": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 0.1536163857478131,
+        "std": 0.36061910364436905,
+        "p01": 0.0,
+        "p50": 0.0,
+        "p99": 1.0
+      },
+      "rule_risk_prior": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 0.25583095145976026,
+        "std": 0.09183007948997986,
+        "p01": 0.1978161114414182,
+        "p50": 0.197837141620492,
+        "p99": 0.5866175789173301
+      },
+      "txn_count_prior": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 40.68209942393855,
+        "std": 79.40943771462116,
+        "p01": 0.0,
+        "p50": 2.0,
+        "p99": 315.0
+      },
+      "amount_sum_prior": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 6866.146885001067,
+        "std": 11595.023724225557,
+        "p01": 0.0,
+        "p50": 450.64,
+        "p99": 45447.000000000015
+      },
+      "failed_txn_rate_prior": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 0.008335634685111962,
+        "std": 0.061694385933074275,
+        "p01": 0.0,
+        "p50": 0.0,
+        "p99": 0.25
+      },
+      "amount_zscore_account": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 0.24467446167390472,
+        "std": 1.1488775339075454,
+        "p01": -0.019249302429484354,
+        "p50": 0.0001244205739769,
+        "p99": 4.762853153615226
+      },
+      "new_device_flag": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 0.05589929592489866,
+        "std": 0.2297516633621746,
+        "p01": 0.0,
+        "p50": 0.0,
+        "p99": 1.0
+      },
+      "new_beneficiary_flag": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 0.18860678472370387,
+        "std": 0.3912376812633756,
+        "p01": 0.0,
+        "p50": 0.0,
+        "p99": 1.0
+      },
+      "high_risk_corridor_flag": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 0.014081502026882867,
+        "std": 0.11783961994079234,
+        "p01": 0.0,
+        "p50": 0.0,
+        "p99": 1.0
+      },
+      "rejected_flag": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 0.00874759974397269,
+        "std": 0.09312856524754119,
+        "p01": 0.0,
+        "p50": 0.0,
+        "p99": 0.0
+      },
+      "processing_time_secs": {
+        "count": 4687,
+        "missing_rate": 0.0,
+        "mean": 1.1925944100704073,
+        "std": 3.0518077334856004,
+        "p01": 0.0,
+        "p50": 0.0,
+        "p99": 13.889800000000024
+      }
+    },
+    "feature_constraints": {
+      "amount": {
+        "max_missing_rate": 0.2,
+        "expected_min": 14.24292,
+        "expected_max": 643418.6286000095,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "amount_log": {
+        "max_missing_rate": 0.2,
+        "expected_min": 2.724111261680604,
+        "expected_max": 13.374433825529914,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "cross_border_flag": {
+        "max_missing_rate": 0.2,
+        "expected_min": 0.0,
+        "expected_max": 1.0,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "rule_risk_prior": {
+        "max_missing_rate": 0.2,
+        "expected_min": 0.1978161114414182,
+        "expected_max": 0.5866175789173301,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "txn_count_prior": {
+        "max_missing_rate": 0.2,
+        "expected_min": 0.0,
+        "expected_max": 315.0,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "amount_sum_prior": {
+        "max_missing_rate": 0.2,
+        "expected_min": 0.0,
+        "expected_max": 45447.000000000015,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "failed_txn_rate_prior": {
+        "max_missing_rate": 0.2,
+        "expected_min": 0.0,
+        "expected_max": 0.25,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "amount_zscore_account": {
+        "max_missing_rate": 0.2,
+        "expected_min": -0.019249302429484354,
+        "expected_max": 4.762853153615226,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "new_device_flag": {
+        "max_missing_rate": 0.2,
+        "expected_min": 0.0,
+        "expected_max": 1.0,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "new_beneficiary_flag": {
+        "max_missing_rate": 0.2,
+        "expected_min": 0.0,
+        "expected_max": 1.0,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "high_risk_corridor_flag": {
+        "max_missing_rate": 0.2,
+        "expected_min": 0.0,
+        "expected_max": 1.0,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "rejected_flag": {
+        "max_missing_rate": 0.2,
+        "expected_min": 0.0,
+        "expected_max": 0.0,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      },
+      "processing_time_secs": {
+        "max_missing_rate": 0.2,
+        "expected_min": 0.0,
+        "expected_max": 13.889800000000024,
+        "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+      }
+    },
+    "score_distribution": {
+      "score_column": "score_final_operating_policy",
+      "mean": 0.11424845822336746,
+      "std": 0.11733671454573451,
+      "p05": 0.03597586063243751,
+      "p50": 0.06545010588101316,
+      "p95": 0.45954983372324026,
+      "high_score_rate_0_8": 0.0
+    },
+    "claim_boundary": "Local monitoring baseline only. Not an active SageMaker Model Monitor schedule unless deployed on AWS."
+  },
+  "explainability": {
+    "status": "PASS",
+    "method": "permutation_importance_average_precision",
+    "rows_evaluated": 600,
+    "top_features": [
+      {
+        "feature": "amount_log",
+        "importance_mean_pr_auc_drop": 0.034737664593409635,
+        "importance_std": 0.02463031089690456
+      },
+      {
+        "feature": "amount",
+        "importance_mean_pr_auc_drop": 0.02346181379250061,
+        "importance_std": 0.02646002323460685
+      },
+      {
+        "feature": "rule_risk_prior",
+        "importance_mean_pr_auc_drop": 0.008773131218471253,
+        "importance_std": 0.017255397855334708
+      },
+      {
+        "feature": "amount_sum_prior",
+        "importance_mean_pr_auc_drop": 0.005842401736264413,
+        "importance_std": 0.004410283733580201
+      },
+      {
+        "feature": "failed_txn_rate_prior",
+        "importance_mean_pr_auc_drop": 0.003760891627421592,
+        "importance_std": 0.005813691121927495
+      },
+      {
+        "feature": "cross_border_flag",
+        "importance_mean_pr_auc_drop": 0.0007207731309290422,
+        "importance_std": 0.02457550583443472
+      },
+      {
+        "feature": "rejected_flag",
+        "importance_mean_pr_auc_drop": 0.0002031271840758575,
+        "importance_std": 0.0003332720511594451
+      },
+      {
+        "feature": "high_risk_corridor_flag",
+        "importance_mean_pr_auc_drop": -0.004432793304126492,
+        "importance_std": 0.0019227997249710417
+      }
+    ],
+    "artifact": "C:\\Users\\bjw-0\\Downloads\\payment-ai-feature-store-fraud-copilot\\outputs\\feature_importance.csv",
+    "claim_boundary": "Local explainability diagnostic only; not a formal SHAP/enterprise model-risk explanation package."
+  },
+  "batch_scoring": {
+    "status": "PASS",
+    "rows_scored": 50,
+    "score_column": "score_final_operating_policy",
+    "decision_counts": {
+      "human_review": 50
+    },
+    "artifact": "C:\\Users\\bjw-0\\Downloads\\payment-ai-feature-store-fraud-copilot\\outputs\\batch_scoring_sample.csv",
+    "claim_boundary": "Offline batch scoring sample only. Not a production decision service."
+  },
+  "model_results": {
+    "logistic_regression": {
+      "pr_auc": 0.158906591687091,
+      "roc_auc": 0.6445688183917277,
+      "precision_at_capacity": 0.17721518987341772,
+      "recall_at_capacity": 0.1,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 110433.91,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.15184861964275437,
+      "false_negative_loss": 616829.27,
+      "brier": 0.40257818265680106,
+      "ece": 0.5514334256669383,
+      "train_time_sec": 0.02092600000105449,
+      "p95_latency_ms_proxy": 0.0008284069123233699,
+      "policy_utility": 0.05481534701726727
+    },
+    "random_forest": {
+      "pr_auc": 0.38082232505202035,
+      "roc_auc": 0.7329585382993676,
+      "precision_at_capacity": 0.6582278481012658,
+      "recall_at_capacity": 0.37142857142857144,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 580695.1,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.7984662443656229,
+      "false_negative_loss": 146568.08000000007,
+      "brier": 0.06964384460490236,
+      "ece": 0.03745862236824952,
+      "train_time_sec": 0.2980836000024283,
+      "p95_latency_ms_proxy": 0.009791074855994494,
+      "policy_utility": 0.512724739495372
+    },
+    "gradient_boosting": {
+      "pr_auc": 0.37520207675145073,
+      "roc_auc": 0.7381939564300773,
+      "precision_at_capacity": 0.5949367088607594,
+      "recall_at_capacity": 0.3357142857142857,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 565883.64,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.7781002195106316,
+      "false_negative_loss": 161379.54000000004,
+      "brier": 0.07216839089007909,
+      "ece": 0.050426881977360116,
+      "train_time_sec": 0.3838372000027448,
+      "p95_latency_ms_proxy": 0.0016162188096861705,
+      "policy_utility": 0.4871608337972105
+    },
+    "calibrated_operating_champion": {
+      "pr_auc": 0.3907621179201541,
+      "roc_auc": 0.7430905531573135,
+      "precision_at_capacity": 0.6708860759493671,
+      "recall_at_capacity": 0.37857142857142856,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 604325.74,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.8309588009116589,
+      "false_negative_loss": 122937.44000000006,
+      "brier": 0.07000803607730285,
+      "ece": 0.03308803293453903,
+      "base_model": "random_forest",
+      "p95_latency_ms_proxy": 0.011749289827193393,
+      "policy_utility": 0.5292745896967048
+    },
+    "selected_operating_champion": {
+      "pr_auc": 0.3907621179201541,
+      "roc_auc": 0.7430905531573135,
+      "precision_at_capacity": 0.6708860759493671,
+      "recall_at_capacity": 0.37857142857142856,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 604325.74,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.8309588009116589,
+      "false_negative_loss": 122937.44000000006,
+      "brier": 0.07000803607730285,
+      "ece": 0.03308803293453903,
+      "base_model": "random_forest",
+      "p95_latency_ms_proxy": 0.011749289827193393,
+      "policy_utility": 0.5292745896967048,
+      "champion_score_column": "score_operating_champion"
+    }
+  },
+  "model_selection": {
+    "best_pr_auc_model_name": "random_forest",
+    "policy_model_name": "random_forest",
+    "selected_operating_champion": "calibrated_operating_champion"
+  },
+  "drift": {
+    "amount": 2.709243172613695,
+    "amount_log": 2.709243172613695,
+    "cross_border_flag": 0.0,
+    "rule_risk_prior": 2.474241772034097,
+    "txn_count_prior": 10.099949005734837,
+    "amount_sum_prior": 7.532884503494819,
+    "failed_txn_rate_prior": 0.0,
+    "amount_zscore_account": 2.7071547169146606
+  },
+  "stress_tests": {
+    "base": {
+      "pr_auc": 0.41487611128557,
+      "roc_auc": 0.7613166348760165,
+      "precision_at_capacity": 0.6708860759493671,
+      "recall_at_capacity": 0.37857142857142856,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 604325.74,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.8309588009116589,
+      "false_negative_loss": 122937.44000000006,
+      "brier": 0.06987891872043339,
+      "ece": 0.03147920036058359
+    },
+    "amount_shock": {
+      "pr_auc": 0.41487611128557,
+      "roc_auc": 0.7613166348760165,
+      "precision_at_capacity": 0.6708860759493671,
+      "recall_at_capacity": 0.37857142857142856,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 901259.5950000001,
+      "total_fraud_loss": 1024197.035,
+      "fraud_loss_capture_rate": 0.8799670026383156,
+      "false_negative_loss": 122937.43999999994,
+      "brier": 0.06987891872043339,
+      "ece": 0.03147920036058359
+    },
+    "score_compression_drift": {
+      "pr_auc": 0.41487611128557,
+      "roc_auc": 0.7613166348760165,
+      "precision_at_capacity": 0.6708860759493671,
+      "recall_at_capacity": 0.37857142857142856,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 604325.74,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.8309588009116589,
+      "false_negative_loss": 122937.44000000006,
+      "brier": 0.07617025405215148,
+      "ece": 0.08937728191878011
+    },
+    "without_envelope_pruning": {
+      "pr_auc": 0.4127481958914157,
+      "roc_auc": 0.7569797209115551,
+      "precision_at_capacity": 0.6708860759493671,
+      "recall_at_capacity": 0.37857142857142856,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 604325.74,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.8309588009116589,
+      "false_negative_loss": 122937.44000000006,
+      "brier": 0.07014822898006368,
+      "ece": 0.030770496536584903
+    },
+    "notes": [
+      "Small-data stress tests are sanity checks, not production validation.",
+      "Amount-shock evaluates sensitivity of fraud-loss capture.",
+      "Score-compression drift evaluates whether ranking metrics are stable under mild calibration drift."
+    ]
+  },
+  "specialty_metrics": {
+    "residual_corrected": {
+      "pr_auc": 0.4127481958914157,
+      "roc_auc": 0.7569797209115551,
+      "precision_at_capacity": 0.6708860759493671,
+      "recall_at_capacity": 0.37857142857142856,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 604325.74,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.8309588009116589,
+      "false_negative_loss": 122937.44000000006,
+      "brier": 0.07014822898006368,
+      "ece": 0.030770496536584903,
+      "selected_alpha": 0.8971428571428571,
+      "base_score_column": "score_operating_champion",
+      "policy_utility": 0.5362180435477764,
+      "p95_latency_ms_proxy": 0.011749289827193393
+    },
+    "envelope_pruned": {
+      "pr_auc": 0.41487611128557,
+      "roc_auc": 0.7613166348760165,
+      "precision_at_capacity": 0.6708860759493671,
+      "recall_at_capacity": 0.37857142857142856,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 604325.74,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.8309588009116589,
+      "false_negative_loss": 122937.44000000006,
+      "brier": 0.06987891872043339,
+      "ece": 0.03147920036058359,
+      "risk_region_recall_amount": 0.8309588009116589,
+      "risk_region_precision_amount": 0.7354501648041615,
+      "risk_region_f1_amount": 0.7802927593646315,
+      "envelope_rate": 0.20985284708893154,
+      "selected_weights": {
+        "env_boost": 0.3,
+        "prior_weight": 0.0
+      },
+      "policy_utility": 0.5367501125924228,
+      "p95_latency_ms_proxy": 0.011749289827193393
+    },
+    "final_operating_policy": {
+      "pr_auc": 0.41487611128557,
+      "roc_auc": 0.7613166348760165,
+      "precision_at_capacity": 0.6708860759493671,
+      "recall_at_capacity": 0.37857142857142856,
+      "review_burden": 0.05054382597568778,
+      "fraud_loss_captured": 604325.74,
+      "total_fraud_loss": 727263.18,
+      "fraud_loss_capture_rate": 0.8309588009116589,
+      "false_negative_loss": 122937.44000000006,
+      "brier": 0.06987891872043339,
+      "ece": 0.03147920036058359,
+      "candidate_score_column": "score_envelope_pruned",
+      "policy_utility": 0.5367501125924228,
+      "selected_policy_name": "envelope_pruned",
+      "candidate_count": 3,
+      "candidate_metrics": [
+        {
+          "pr_auc": 0.3907621179201541,
+          "roc_auc": 0.7430905531573135,
+          "precision_at_capacity": 0.6708860759493671,
+          "recall_at_capacity": 0.37857142857142856,
+          "review_burden": 0.05054382597568778,
+          "fraud_loss_captured": 604325.74,
+          "total_fraud_loss": 727263.18,
+          "fraud_loss_capture_rate": 0.8309588009116589,
+          "false_negative_loss": 122937.44000000006,
+          "brier": 0.07000803607730285,
+          "ece": 0.03308803293453907,
+          "candidate_score_column": "score_operating_champion",
+          "policy_utility": 0.5292745896967048
+        },
+        {
+          "pr_auc": 0.4127481958914157,
+          "roc_auc": 0.7569797209115551,
+          "precision_at_capacity": 0.6708860759493671,
+          "recall_at_capacity": 0.37857142857142856,
+          "review_burden": 0.05054382597568778,
+          "fraud_loss_captured": 604325.74,
+          "total_fraud_loss": 727263.18,
+          "fraud_loss_capture_rate": 0.8309588009116589,
+          "false_negative_loss": 122937.44000000006,
+          "brier": 0.07014822898006368,
+          "ece": 0.030770496536584903,
+          "candidate_score_column": "score_residual_corrected",
+          "policy_utility": 0.5362180435477764
+        },
+        {
+          "pr_auc": 0.41487611128557,
+          "roc_auc": 0.7613166348760165,
+          "precision_at_capacity": 0.6708860759493671,
+          "recall_at_capacity": 0.37857142857142856,
+          "review_burden": 0.05054382597568778,
+          "fraud_loss_captured": 604325.74,
+          "total_fraud_loss": 727263.18,
+          "fraud_loss_capture_rate": 0.8309588009116589,
+          "false_negative_loss": 122937.44000000006,
+          "brier": 0.06987891872043339,
+          "ece": 0.03147920036058359,
+          "candidate_score_column": "score_envelope_pruned",
+          "policy_utility": 0.5367501125924228
+        }
+      ],
+      "p95_latency_ms_proxy": 0.011749289827193393
+    }
+  },
+  "release": {
+    "decision": "REVIEW",
+    "checks": {
+      "pr_auc_lift": 0.02411399336541592,
+      "precision_at_5pct_lift": 0.0,
+      "loss_capture_lift": 0.0,
+      "ece": 0.03147920036058359,
+      "p95_latency_ms": 0.011749289827193393,
+      "utility_lift": 0.0074755228957179565
+    },
+    "pass_flags": {
+      "pr_auc_lift": true,
+      "precision_lift": false,
+      "loss_capture_lift": false,
+      "ece": true,
+      "latency": true,
+      "utility_lift": true
+    }
+  }
+}

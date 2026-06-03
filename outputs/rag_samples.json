@@ -1,0 +1,195 @@
+[
+  {
+    "case": {
+      "event_id": "EVT-0002061",
+      "score": 0.5372292848342554
+    },
+    "evidence": [
+      {
+        "score": 0.11764705882352941,
+        "complaint_id": "unknown",
+        "narrative": "XXXX XXXX XXXX  reporting incorrect late payment for XX/XX/XXXX - This reporting is INCORRECT account was paid on time XXXX XXXX XXXX reporting incorrect late payment for XX/XX/XXXX and XX/XX/XXXX - This reporting is INCORRECT account was paid on time XXXX XXXX  reporting incorrect late payment for XXXX - This reporting is INCORRECT account was paid on time XXXX  XXXX reporting incorrect late payment for XX/XX/XXXX - This reporting is INCORRECT account was paid on time",
+        "product": "unknown",
+        "issue": "unknown"
+      },
+      {
+        "score": 0.1,
+        "complaint_id": "unknown",
+        "narrative": "I've called several times to get this Company to update the accuracy of my payment history and me paying off this account.",
+        "product": "unknown",
+        "issue": "unknown"
+      },
+      {
+        "score": 0.09090909090909091,
+        "complaint_id": "unknown",
+        "narrative": "I believe this account is a fraud XXXX XXXX XXXX XXXX XXXX.",
+        "product": "unknown",
+        "issue": "unknown"
+      }
+    ],
+    "investigation": {
+      "summary": "Payment case EVT-0002061 has risk score 0.537. Top supporting evidence relates to unknown for unknown. Recommended action: human review if score remains above the configured review threshold.",
+      "best_evidence_score": 0.11764705882352941,
+      "unsupported_claim_flag": false,
+      "abstain": false,
+      "source_conflict_flag": false,
+      "signal_types": [
+        "risk_signal"
+      ]
+    }
+  },
+  {
+    "case": {
+      "event_id": "EVT-0001086",
+      "score": 0.5234863082627045
+    },
+    "evidence": [
+      {
+        "score": 0.06666666666666667,
+        "complaint_id": "unknown",
+        "narrative": "Payment history is inaccurate. I never missed a payment. The company doesnt report my payment every month.",
+        "product": "unknown",
+        "issue": "unknown"
+      },
+      {
+        "score": 0.0625,
+        "complaint_id": "unknown",
+        "narrative": "XXXX XXXX XXXX  reporting incorrect late payment for XX/XX/XXXX - This reporting is INCORRECT account was paid on time XXXX XXXX XXXX reporting incorrect late payment for XX/XX/XXXX and XX/XX/XXXX - This reporting is INCORRECT account was paid on time XXXX XXXX  reporting incorrect late payment for XXXX - This reporting is INCORRECT account was paid on time XXXX  XXXX reporting incorrect late payment for XX/XX/XXXX - This reporting is INCORRECT account was paid on time",
+        "product": "unknown",
+        "issue": "unknown"
+      },
+      {
+        "score": 0.05263157894736842,
+        "complaint_id": "unknown",
+        "narrative": "I've called several times to get this Company to update the accuracy of my payment history and me paying off this account.",
+        "product": "unknown",
+        "issue": "unknown"
+      }
+    ],
+    "investigation": {
+      "summary": "Payment case EVT-0001086 has risk score 0.523. Top supporting evidence relates to unknown for unknown. Recommended action: human review if score remains above the configured review threshold.",
+      "best_evidence_score": 0.06666666666666667,
+      "unsupported_claim_flag": false,
+      "abstain": false,
+      "source_conflict_flag": false,
+      "signal_types": []
+    }
+  },
+  {
+    "case": {
+      "event_id": "EVT-0001640",
+      "score": 0.5223931437769673
+    },
+    "evidence": [
+      {
+        "score": 0.09090909090909091,
+        "complaint_id": "unknown",
+        "narrative": "I believe this account is a fraud XXXX XXXX XXXX XXXX XXXX.",
+        "product": "unknown",
+        "issue": "unknown"
+      },
+      {
+        "score": 0.058823529411764705,
+        "complaint_id": "unknown",
+        "narrative": "Payment history is inaccurate. I never missed a payment. The company doesnt report my payment every month.",
+        "product": "unknown",
+        "issue": "unknown"
+      },
+      {
+        "score": 0.05555555555555555,
+        "complaint_id": "unknown",
+        "narrative": "XX/XX/20 today I send the report because I found many accounts not mine this is fraud accounts.",
+        "product": "unknown",
+        "issue": "unknown"
+      }
+    ],
+    "investigation": {
+      "summary": "Payment case EVT-0001640 has risk score 0.522. Top supporting evidence relates to unknown for unknown. Recommended action: human review if score remains above the configured review threshold.",
+      "best_evidence_score": 0.09090909090909091,
+      "unsupported_claim_flag": false,
+      "abstain": false,
+      "source_conflict_flag": false,
+      "signal_types": [
+        "risk_signal"
+      ]
+    }
+  },
+  {
+    "case": {
+      "event_id": "EVT-0001200",
+      "score": 0.5173925561072527
+    },
+    "evidence": [
+      {
+        "score": 0.09090909090909091,
+        "complaint_id": "unknown",
+        "narrative": "I believe this account is a fraud XXXX XXXX XXXX XXXX XXXX.",
+        "product": "unknown",
+        "issue": "unknown"
+      },
+      {
+        "score": 0.058823529411764705,
+        "complaint_id": "unknown",
+        "narrative": "Payment history is inaccurate. I never missed a payment. The company doesnt report my payment every month.",
+        "product": "unknown",
+        "issue": "unknown"
+      },
+      {
+        "score": 0.05555555555555555,
+        "complaint_id": "unknown",
+        "narrative": "XX/XX/20 today I send the report because I found many accounts not mine this is fraud accounts.",
+        "product": "unknown",
+        "issue": "unknown"
+      }
+    ],
+    "investigation": {
+      "summary": "Payment case EVT-0001200 has risk score 0.517. Top supporting evidence relates to unknown for unknown. Recommended action: human review if score remains above the configured review threshold.",
+      "best_evidence_score": 0.09090909090909091,
+      "unsupported_claim_flag": false,
+      "abstain": false,
+      "source_conflict_flag": false,
+      "signal_types": [
+        "risk_signal"
+      ]
+    }
+  },
+  {
+    "case": {
+      "event_id": "EVT-0001991",
+      "score": 0.5164331375677037
+    },
+    "evidence": [
+      {
+        "score": 0.09090909090909091,
+        "complaint_id": "unknown",
+        "narrative": "I believe this account is a fraud XXXX XXXX XXXX XXXX XXXX.",
+        "product": "unknown",
+        "issue": "unknown"
+      },
+      {
+        "score": 0.058823529411764705,
+        "complaint_id": "unknown",
+        "narrative": "Payment history is inaccurate. I never missed a payment. The company doesnt report my payment every month.",
+        "product": "unknown",
+        "issue": "unknown"
+      },
+      {
+        "score": 0.05555555555555555,
+        "complaint_id": "unknown",
+        "narrative": "XX/XX/20 today I send the report because I found many accounts not mine this is fraud accounts.",
+        "product": "unknown",
+        "issue": "unknown"
+      }
+    ],
+    "investigation": {
+      "summary": "Payment case EVT-0001991 has risk score 0.516. Top supporting evidence relates to unknown for unknown. Recommended action: human review if score remains above the configured review threshold.",
+      "best_evidence_score": 0.09090909090909091,
+      "unsupported_claim_flag": false,
+      "abstain": false,
+      "source_conflict_flag": false,
+      "signal_types": [
+        "risk_signal"
+      ]
+    }
+  }
+]

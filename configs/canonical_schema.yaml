@@ -1,0 +1,23 @@
+canonical_payment_events:
+  required:
+    - dataset_source
+    - event_id
+    - event_time
+    - account_id_hash
+    - counterparty_id_hash
+    - amount
+    - currency
+    - channel
+    - payment_type
+    - payment_status
+    - risk_label
+  optional:
+    - customer_id_hash
+    - device_id_hash
+    - ip_region
+    - failure_reason
+    - fraud_type_proxy
+    - text_context_id
+    - processing_time_secs
+    - purpose_code
+    - source_file

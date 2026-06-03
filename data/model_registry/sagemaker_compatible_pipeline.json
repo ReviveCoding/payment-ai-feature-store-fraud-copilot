@@ -1,0 +1,26 @@
+{
+  "pipeline_name": "payment-fraud-risk-local-compatible-pipeline",
+  "execution_mode": "local_sagemaker_compatible_template",
+  "steps": [
+    {
+      "name": "ProcessingStep",
+      "purpose": "PySpark-compatible feature generation and validation"
+    },
+    {
+      "name": "TrainingStep",
+      "purpose": "train vanilla and improved fraud-risk models"
+    },
+    {
+      "name": "EvaluationStep",
+      "purpose": "compute PR-AUC, Precision@K, calibration, fraud-loss capture"
+    },
+    {
+      "name": "ConditionStep",
+      "purpose": "apply release gates"
+    },
+    {
+      "name": "RegisterModel",
+      "purpose": "write local model package metadata with approval status"
+    }
+  ]
+}

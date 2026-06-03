@@ -1,0 +1,213 @@
+{
+  "status": "PASS",
+  "baseline_type": "local_model_monitor_style_baseline",
+  "feature_statistics": {
+    "amount": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 33533.22285747813,
+      "std": 155082.82067877523,
+      "p01": 14.24292,
+      "p50": 182.04,
+      "p99": 643418.6286000095
+    },
+    "amount_log": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 6.477521418153609,
+      "std": 2.5835668088708545,
+      "p01": 2.724111261680604,
+      "p50": 5.209704708191433,
+      "p99": 13.374433825529914
+    },
+    "cross_border_flag": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 0.1536163857478131,
+      "std": 0.36061910364436905,
+      "p01": 0.0,
+      "p50": 0.0,
+      "p99": 1.0
+    },
+    "rule_risk_prior": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 0.25583095145976026,
+      "std": 0.09183007948997986,
+      "p01": 0.1978161114414182,
+      "p50": 0.197837141620492,
+      "p99": 0.5866175789173301
+    },
+    "txn_count_prior": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 40.68209942393855,
+      "std": 79.40943771462116,
+      "p01": 0.0,
+      "p50": 2.0,
+      "p99": 315.0
+    },
+    "amount_sum_prior": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 6866.146885001067,
+      "std": 11595.023724225557,
+      "p01": 0.0,
+      "p50": 450.64,
+      "p99": 45447.000000000015
+    },
+    "failed_txn_rate_prior": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 0.008335634685111962,
+      "std": 0.061694385933074275,
+      "p01": 0.0,
+      "p50": 0.0,
+      "p99": 0.25
+    },
+    "amount_zscore_account": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 0.24467446167390472,
+      "std": 1.1488775339075454,
+      "p01": -0.019249302429484354,
+      "p50": 0.0001244205739769,
+      "p99": 4.762853153615226
+    },
+    "new_device_flag": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 0.05589929592489866,
+      "std": 0.2297516633621746,
+      "p01": 0.0,
+      "p50": 0.0,
+      "p99": 1.0
+    },
+    "new_beneficiary_flag": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 0.18860678472370387,
+      "std": 0.3912376812633756,
+      "p01": 0.0,
+      "p50": 0.0,
+      "p99": 1.0
+    },
+    "high_risk_corridor_flag": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 0.014081502026882867,
+      "std": 0.11783961994079234,
+      "p01": 0.0,
+      "p50": 0.0,
+      "p99": 1.0
+    },
+    "rejected_flag": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 0.00874759974397269,
+      "std": 0.09312856524754119,
+      "p01": 0.0,
+      "p50": 0.0,
+      "p99": 0.0
+    },
+    "processing_time_secs": {
+      "count": 4687,
+      "missing_rate": 0.0,
+      "mean": 1.1925944100704073,
+      "std": 3.0518077334856004,
+      "p01": 0.0,
+      "p50": 0.0,
+      "p99": 13.889800000000024
+    }
+  },
+  "feature_constraints": {
+    "amount": {
+      "max_missing_rate": 0.2,
+      "expected_min": 14.24292,
+      "expected_max": 643418.6286000095,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "amount_log": {
+      "max_missing_rate": 0.2,
+      "expected_min": 2.724111261680604,
+      "expected_max": 13.374433825529914,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "cross_border_flag": {
+      "max_missing_rate": 0.2,
+      "expected_min": 0.0,
+      "expected_max": 1.0,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "rule_risk_prior": {
+      "max_missing_rate": 0.2,
+      "expected_min": 0.1978161114414182,
+      "expected_max": 0.5866175789173301,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "txn_count_prior": {
+      "max_missing_rate": 0.2,
+      "expected_min": 0.0,
+      "expected_max": 315.0,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "amount_sum_prior": {
+      "max_missing_rate": 0.2,
+      "expected_min": 0.0,
+      "expected_max": 45447.000000000015,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "failed_txn_rate_prior": {
+      "max_missing_rate": 0.2,
+      "expected_min": 0.0,
+      "expected_max": 0.25,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "amount_zscore_account": {
+      "max_missing_rate": 0.2,
+      "expected_min": -0.019249302429484354,
+      "expected_max": 4.762853153615226,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "new_device_flag": {
+      "max_missing_rate": 0.2,
+      "expected_min": 0.0,
+      "expected_max": 1.0,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "new_beneficiary_flag": {
+      "max_missing_rate": 0.2,
+      "expected_min": 0.0,
+      "expected_max": 1.0,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "high_risk_corridor_flag": {
+      "max_missing_rate": 0.2,
+      "expected_min": 0.0,
+      "expected_max": 1.0,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "rejected_flag": {
+      "max_missing_rate": 0.2,
+      "expected_min": 0.0,
+      "expected_max": 0.0,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    },
+    "processing_time_secs": {
+      "max_missing_rate": 0.2,
+      "expected_min": 0.0,
+      "expected_max": 13.889800000000024,
+      "monitoring_action": "review_if_outside_range_or_missing_rate_exceeds_threshold"
+    }
+  },
+  "score_distribution": {
+    "score_column": "score_final_operating_policy",
+    "mean": 0.11424845822336746,
+    "std": 0.11733671454573451,
+    "p05": 0.03597586063243751,
+    "p50": 0.06545010588101316,
+    "p95": 0.45954983372324026,
+    "high_score_rate_0_8": 0.0
+  },
+  "claim_boundary": "Local monitoring baseline only. Not an active SageMaker Model Monitor schedule unless deployed on AWS."
+}

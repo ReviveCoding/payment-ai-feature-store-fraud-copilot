@@ -1,0 +1,106 @@
+{
+  "model_package_group_name": "payment-fraud-risk-models",
+  "model_version": "1.0.0-local",
+  "model_artifact": "C:\\Users\\bjw-0\\Downloads\\payment-ai-feature-store-fraud-copilot\\models\\operating_champion.joblib",
+  "approval_status": "PendingManualApproval",
+  "registered_at": "2026-06-03T13:25:59.242790+00:00",
+  "metrics": {
+    "pr_auc": 0.41487611128557,
+    "roc_auc": 0.7613166348760165,
+    "precision_at_capacity": 0.6708860759493671,
+    "recall_at_capacity": 0.37857142857142856,
+    "review_burden": 0.05054382597568778,
+    "fraud_loss_captured": 604325.74,
+    "total_fraud_loss": 727263.18,
+    "fraud_loss_capture_rate": 0.8309588009116589,
+    "false_negative_loss": 122937.44000000006,
+    "brier": 0.06987891872043339,
+    "ece": 0.03147920036058359,
+    "candidate_score_column": "score_envelope_pruned",
+    "policy_utility": 0.5367501125924228,
+    "selected_policy_name": "envelope_pruned",
+    "candidate_count": 3,
+    "candidate_metrics": [
+      {
+        "pr_auc": 0.3907621179201541,
+        "roc_auc": 0.7430905531573135,
+        "precision_at_capacity": 0.6708860759493671,
+        "recall_at_capacity": 0.37857142857142856,
+        "review_burden": 0.05054382597568778,
+        "fraud_loss_captured": 604325.74,
+        "total_fraud_loss": 727263.18,
+        "fraud_loss_capture_rate": 0.8309588009116589,
+        "false_negative_loss": 122937.44000000006,
+        "brier": 0.07000803607730285,
+        "ece": 0.03308803293453907,
+        "candidate_score_column": "score_operating_champion",
+        "policy_utility": 0.5292745896967048
+      },
+      {
+        "pr_auc": 0.4127481958914157,
+        "roc_auc": 0.7569797209115551,
+        "precision_at_capacity": 0.6708860759493671,
+        "recall_at_capacity": 0.37857142857142856,
+        "review_burden": 0.05054382597568778,
+        "fraud_loss_captured": 604325.74,
+        "total_fraud_loss": 727263.18,
+        "fraud_loss_capture_rate": 0.8309588009116589,
+        "false_negative_loss": 122937.44000000006,
+        "brier": 0.07014822898006368,
+        "ece": 0.030770496536584903,
+        "candidate_score_column": "score_residual_corrected",
+        "policy_utility": 0.5362180435477764
+      },
+      {
+        "pr_auc": 0.41487611128557,
+        "roc_auc": 0.7613166348760165,
+        "precision_at_capacity": 0.6708860759493671,
+        "recall_at_capacity": 0.37857142857142856,
+        "review_burden": 0.05054382597568778,
+        "fraud_loss_captured": 604325.74,
+        "total_fraud_loss": 727263.18,
+        "fraud_loss_capture_rate": 0.8309588009116589,
+        "false_negative_loss": 122937.44000000006,
+        "brier": 0.06987891872043339,
+        "ece": 0.03147920036058359,
+        "candidate_score_column": "score_envelope_pruned",
+        "policy_utility": 0.5367501125924228
+      }
+    ],
+    "p95_latency_ms_proxy": 0.011749289827193393
+  },
+  "feature_names": [
+    "amount",
+    "amount_log",
+    "cross_border_flag",
+    "rule_risk_prior",
+    "txn_count_prior",
+    "amount_sum_prior",
+    "failed_txn_rate_prior",
+    "amount_zscore_account",
+    "new_device_flag",
+    "new_beneficiary_flag",
+    "high_risk_corridor_flag",
+    "rejected_flag",
+    "processing_time_secs"
+  ],
+  "lineage": {
+    "data": "public-style/synthetic sample mode",
+    "feature_store": "local partitioned offline store with online SQLite lookup",
+    "training_pipeline": "SageMaker-compatible local template"
+  },
+  "governance_artifacts": {
+    "model_card": "reports/model_card.md",
+    "validation_memo": "reports/validation_memo.md",
+    "monitoring_baseline": "outputs/model_monitoring_baseline.json",
+    "feature_importance": "outputs/feature_importance.csv",
+    "batch_scoring_sample": "outputs/batch_scoring_sample.csv"
+  },
+  "monitoring_plan": {
+    "data_quality_baseline": "outputs/model_monitoring_baseline.json",
+    "feature_importance": "outputs/feature_importance.csv",
+    "batch_scoring_sample": "outputs/batch_scoring_sample.csv",
+    "recommended_review_cadence": "recompute drift, calibration, and review-capacity metrics before any production promotion"
+  },
+  "claim_boundary": "Not a production SageMaker registration unless explicitly run on AWS."
+}

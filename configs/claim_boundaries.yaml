@@ -1,0 +1,12 @@
+claims:
+  data: public-style generated fraud samples, generated complaint narratives, synthetic ISO 20022 if locally available
+  no_proprietary_bank_data: true
+  no_jpmorgan_data: true
+  no_production_deployment: true
+  aws_execution: local compatible artifacts only unless explicitly run
+  approved_wording:
+    - local-runnable
+    - AWS-patterned
+    - EMR-compatible
+    - SageMaker-compatible
+    - production-style reference framework

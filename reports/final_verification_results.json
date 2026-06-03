@@ -1,0 +1,23 @@
+{
+  "status": "FAIL",
+  "missing_required_files": [],
+  "audit_code": 1,
+  "raw_data_present": true,
+  "large_raw_files_count": 11,
+  "large_raw_files_preview": [
+    "data\\raw\\baf\\Base.csv",
+    "data\\raw\\baf\\Variant I.csv",
+    "data\\raw\\baf\\Variant II.csv",
+    "data\\raw\\baf\\Variant III.csv",
+    "data\\raw\\baf\\Variant IV.csv",
+    "data\\raw\\baf\\Variant V.csv",
+    "data\\raw\\cfpb\\cfpb_complaints_narratives.csv",
+    "data\\raw\\ieee_cis\\test_transaction.csv",
+    "data\\raw\\ieee_cis\\train_identity.csv",
+    "data\\raw\\ieee_cis\\train_transaction.csv"
+  ],
+  "notes": [
+    "local_runnable_audit.py returned a nonzero code.",
+    "Large raw datasets are present locally. This is acceptable for local benchmarking, but data/raw must remain ignored and must not be committed to GitHub."
+  ]
+}

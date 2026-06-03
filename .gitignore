@@ -1,0 +1,66 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+data/raw/
+data/cache/
+outputs/full/
+*.7z
+*.zip
+*.gz
+.aws/
+models/*.pt
+models/*.pkl
+models/*.joblib
+!models/.gitkeep
+
+# Local environment
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Large/raw datasets
+data/raw/
+*.zip
+*.7z
+*.gz
+*.parquet
+
+# Local secrets
+.env
+.aws/
+*.pem
+*.key
+
+# Local Python environment
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+*.pyd
+
+# Large/raw datasets
+data/raw/
+data/cache/
+*.zip
+*.7z
+*.gz
+*.parquet
+
+# Local secrets / credentials
+.env
+.aws/
+*.pem
+*.key
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

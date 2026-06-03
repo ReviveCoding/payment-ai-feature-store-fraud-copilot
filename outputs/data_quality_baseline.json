@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "rows": {
+    "events": 6250,
+    "features": 6250
+  },
+  "null_rates": {
+    "events": {
+      "event_id": 0.0,
+      "event_time": 0.0,
+      "account_id_hash": 0.0,
+      "amount": 0.0,
+      "risk_label": 0.0,
+      "dataset_source": 0.0
+    },
+    "features": {
+      "event_id": 0.0,
+      "event_time": 0.0,
+      "account_id_hash": 0.0,
+      "amount": 0.0,
+      "rule_risk_prior": 0.0,
+      "txn_count_prior": 0.0,
+      "failed_txn_rate_prior": 0.0,
+      "amount_zscore_account": 0.0
+    }
+  },
+  "duplicate_rates": {
+    "events": 0.0,
+    "features": 0.0
+  },
+  "amount_stats": {
+    "min": 1.896,
+    "p50": 424.935,
+    "p95": 140185.8599999985,
+    "max": 3776389.09,
+    "non_positive_rate": 0.0
+  },
+  "source_counts": {
+    "events": {
+      "paysim_style_sample": 1378,
+      "ieee_cis_public": 1250,
+      "baf_public": 1250,
+      "paysim_public": 1250,
+      "baf_style_sample": 1122
+    },
+    "features": {
+      "paysim_style_sample": 1378,
+      "ieee_cis_public": 1250,
+      "baf_public": 1250,
+      "paysim_public": 1250,
+      "baf_style_sample": 1122
+    }
+  },
+  "deterministic_feature_hash": "0b1153b89a525c95f91f9eb08c2845662ad503e6393eb0cc99ddd8f21f2e6118",
+  "checks": {
+    "required_event_columns_present": true,
+    "required_feature_columns_present": true,
+    "event_duplicate_rate_ok": true,
+    "feature_duplicate_rate_ok": true,
+    "event_null_rate_ok": true,
+    "feature_null_rate_ok": true,
+    "amount_values_positive": true,
+    "dataset_sources_present": true,
+    "feature_sources_present": true
+  }
+}

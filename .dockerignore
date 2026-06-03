@@ -1,0 +1,13 @@
+.git
+.github
+.pytest_cache
+__pycache__
+*.pyc
+.env
+.aws
+data/raw/
+data/cache/
+outputs/full/
+*.7z
+*.zip
+*.gz

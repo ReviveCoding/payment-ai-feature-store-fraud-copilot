@@ -1,0 +1,15 @@
+random_seed: 42
+sample_size: 2500
+temporal_test_fraction: 0.25
+review_capacity_fraction: 0.05
+specialty:
+  residual_correction: true
+  risk_envelope_pruning: true
+  kpi_policy_simulation: true
+  behavioral_risk_timestep: false
+  rag_investigation: true
+  nlp_transformer_smoke: true
+model_candidates:
+  - logistic_regression
+  - random_forest
+  - gradient_boosting

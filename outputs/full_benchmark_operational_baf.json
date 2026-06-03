@@ -1,0 +1,78 @@
+{
+  "logistic_regression": {
+    "val": {
+      "rows": 100000,
+      "positive_rate": 0.00896,
+      "pr_auc": 0.028374360165135053,
+      "roc_auc": 0.7016664852795332,
+      "brier": 0.1385510948908364,
+      "precision_at_5pct": 0.0216,
+      "recall_at_5pct": 0.12053571428571429,
+      "review_burden": 0.05,
+      "fraud_loss_capture_rate": 0.23915565166334904,
+      "fraud_loss_captured": 167000.0,
+      "total_fraud_loss": 698290.0
+    },
+    "test": {
+      "rows": 100000,
+      "positive_rate": 0.00901,
+      "pr_auc": 0.029151405999857705,
+      "roc_auc": 0.7295246654039914,
+      "brier": 0.15618319471408612,
+      "precision_at_5pct": 0.0274,
+      "recall_at_5pct": 0.15205327413984462,
+      "review_burden": 0.05,
+      "fraud_loss_capture_rate": 0.26153087326076235,
+      "fraud_loss_captured": 228000.0,
+      "total_fraud_loss": 871790.0,
+      "train_seconds": 0.8620970249176025
+    }
+  },
+  "hist_gradient_boosting": {
+    "val": {
+      "rows": 100000,
+      "positive_rate": 0.00896,
+      "pr_auc": 0.01727319619486807,
+      "roc_auc": 0.6275961859331035,
+      "brier": 0.00887533013037745,
+      "precision_at_5pct": 0.0158,
+      "recall_at_5pct": 0.08816964285714286,
+      "review_burden": 0.05,
+      "fraud_loss_capture_rate": 0.13618983516876942,
+      "fraud_loss_captured": 95100.0,
+      "total_fraud_loss": 698290.0
+    },
+    "test": {
+      "rows": 100000,
+      "positive_rate": 0.00901,
+      "pr_auc": 0.010738843232366294,
+      "roc_auc": 0.49982581124746395,
+      "brier": 0.008968039593627518,
+      "precision_at_5pct": 0.0122,
+      "recall_at_5pct": 0.06770255271920089,
+      "review_burden": 0.05,
+      "fraud_loss_capture_rate": 0.06847979444591014,
+      "fraud_loss_captured": 59700.0,
+      "total_fraud_loss": 871790.0,
+      "train_seconds": 5.4948410987854
+    }
+  },
+  "mechanism_informed_enhanced": {
+    "val_selection_utility": 0.2525536562452124,
+    "test": {
+      "rows": 100000,
+      "positive_rate": 0.00901,
+      "pr_auc": 0.03405912268019525,
+      "roc_auc": 0.7240000047486679,
+      "brier": 0.14303242499380597,
+      "precision_at_5pct": 0.0466,
+      "recall_at_5pct": 0.2586015538290788,
+      "review_burden": 0.05,
+      "fraud_loss_capture_rate": 0.4507966368047351,
+      "fraud_loss_captured": 393000.0,
+      "total_fraud_loss": 871790.0,
+      "selected_alpha_from_validation": 0.5,
+      "base_model": "logistic_regression"
+    }
+  }
+}
