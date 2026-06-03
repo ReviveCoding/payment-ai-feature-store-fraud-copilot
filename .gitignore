@@ -131,3 +131,13 @@ Thumbs.db
 data/feature_store_offline/
 data/online_store/
 models/
+
+# Spark/PySpark generated artifacts
+data/feature_store_spark/
+outputs/spark_batch_benchmark/
+models/
+
+# Spark/PySpark generated artifacts
+data/feature_store_spark/
+outputs/spark_batch_benchmark/
+models/

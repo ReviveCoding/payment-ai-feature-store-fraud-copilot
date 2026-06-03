@@ -1,0 +1,92 @@
+{
+  "model_name": "spark_paysim_fraud_logistic_regression",
+  "run_id": "paysim_spark_lr_500k_20260603T230150Z",
+  "created_at_utc": "2026-06-03T23:01:53.555658+00:00",
+  "framework": "Spark ML / PySpark",
+  "problem_type": "payment fraud-risk scoring",
+  "dataset": "PaySim public/proxy fraud benchmark",
+  "claim_boundary": "Public/proxy benchmark only. Not JPMC data, not proprietary bank data, not production deployment.",
+  "training_mode": "local Spark/PySpark batch benchmark",
+  "model_path": "models\\paysim_spark_lr_500k_20260603T230150Z_spark_pipeline_model",
+  "feature_store_path": "data\\feature_store_spark\\paysim_spark_lr_500k_20260603T230150Z",
+  "scored_batch_path": "outputs\\spark_batch_benchmark\\paysim_spark_lr_500k_20260603T230150Z\\scored_test_parquet",
+  "metrics": {
+    "pr_auc": 0.07194422228286276,
+    "roc_auc": 0.9330957701871465,
+    "brier": 0.022809542639939395,
+    "train_seconds": 5.938474416732788,
+    "score_seconds": 0.9804141521453857,
+    "runtime_seconds": 34.669411182403564,
+    "raw_rows": 500000,
+    "feature_rows": 500000,
+    "fraud_rows": 233,
+    "train_rows": 300000,
+    "validation_rows": 100000,
+    "test_rows": 100000,
+    "scored_rows": 100000,
+    "train_end_row": 300000,
+    "validation_end_row": 400000
+  },
+  "capacity_metrics": [
+    {
+      "capacity": 0.01,
+      "capacity_pct": 1,
+      "top_k": 1000,
+      "precision_at_capacity": 0.017,
+      "recall_at_capacity": 0.5862068965517241,
+      "fraud_loss_capture_rate": 0.9013818326169086,
+      "fraud_loss_captured": 37818051.14,
+      "total_fraud_loss": 41955639.410000004,
+      "false_negative_loss": 4137588.2700000033,
+      "reviewed_fraud_count": 17,
+      "true_fraud_count": 29
+    },
+    {
+      "capacity": 0.02,
+      "capacity_pct": 2,
+      "top_k": 2000,
+      "precision_at_capacity": 0.0085,
+      "recall_at_capacity": 0.5862068965517241,
+      "fraud_loss_capture_rate": 0.9013818326169086,
+      "fraud_loss_captured": 37818051.14,
+      "total_fraud_loss": 41955639.410000004,
+      "false_negative_loss": 4137588.2700000033,
+      "reviewed_fraud_count": 17,
+      "true_fraud_count": 29
+    },
+    {
+      "capacity": 0.05,
+      "capacity_pct": 5,
+      "top_k": 5000,
+      "precision_at_capacity": 0.0044,
+      "recall_at_capacity": 0.7586206896551724,
+      "fraud_loss_capture_rate": 0.9588352623321393,
+      "fraud_loss_captured": 40228546.519999996,
+      "total_fraud_loss": 41955639.410000004,
+      "false_negative_loss": 1727092.890000008,
+      "reviewed_fraud_count": 22,
+      "true_fraud_count": 29
+    },
+    {
+      "capacity": 0.1,
+      "capacity_pct": 10,
+      "top_k": 10000,
+      "precision_at_capacity": 0.0022,
+      "recall_at_capacity": 0.7586206896551724,
+      "fraud_loss_capture_rate": 0.9588352623321393,
+      "fraud_loss_captured": 40228546.519999996,
+      "total_fraud_loss": 41955639.410000004,
+      "false_negative_loss": 1727092.890000008,
+      "reviewed_fraud_count": 22,
+      "true_fraud_count": 29
+    }
+  ],
+  "class_weighting": {
+    "positive_count": 183,
+    "negative_count": 299817,
+    "positive_weight": 819.672131147541,
+    "negative_weight": 0.5003051861635598
+  },
+  "registry_status": "REVIEW",
+  "sagemaker_compatibility_note": "Local model-registry-style metadata mirrors model version, metrics, artifact paths, approval/review status, and claim-boundary fields; no AWS SageMaker job was executed in this run."
+}
