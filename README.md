@@ -2,7 +2,7 @@
 
 **Subtitle:** Evidence-grounded GenAI investigation and Risk/Compliance validation for payment fraud-risk ML.
 
-This project is a **local-runnable, AWS-patterned, production-style reference framework** for a Payments AI/ML role. It demonstrates a payment fraud-risk ML lifecycle:
+This project is a **local-runnable, AWS-patterned, production-style reference framework** for offline fraud-risk investigation and model evaluation. It demonstrates a payment fraud-risk ML lifecycle:
 
 ```text
 public/proxy fraud data + synthetic ISO 20022 pacs.008/pacs.002
@@ -95,7 +95,7 @@ This repository now includes `Dockerfile`, `docker-compose.yml`, and Kubernetes 
 Configure optional public benchmark paths in `configs/dataset_sources.yaml` to run against user-supplied PaySim, Bank Account Fraud Dataset Suite, or IEEE-CIS files. The default `make run-demo` remains external-download-free and uses generated public-style fraud samples when those files are absent.
 
 
-## Hardening additions in the loop-optimized version
+## Validation and operational checks
 
 - Champion/challenger operating-model selection using fraud-review utility, not PR-AUC alone.
 - Drift monitoring report using temporal train/test PSI checks.
@@ -105,4 +105,4 @@ Configure optional public benchmark paths in `configs/dataset_sources.yaml` to r
 - Model-Monitor-style baseline, local explainability diagnostics, and offline batch scoring contract.
 - GitHub Actions workflow scaffold under `.github/workflows/local-ci.yml`, plus `pyproject.toml` for Python project metadata and pytest configuration.
 
-Recommended review order: `PROJECT_MANIFEST.md`, then the five core reports in `reports/`.
+For additional implementation details, see `PROJECT_MANIFEST.md` and the evaluation reports in `reports/`.
