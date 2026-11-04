@@ -1,6 +1,8 @@
 from __future__ import annotations
+
 import numpy as np
 import pandas as pd
+
 from src.modeling.metrics import evaluate_scores
 
 
@@ -24,7 +26,9 @@ def _risk_region_metrics(df: pd.DataFrame, score_col: str, capacity_fraction: fl
     return {
         "risk_region_recall_amount": recall_amount,
         "risk_region_precision_amount": precision_amount,
-        "risk_region_f1_amount": float(2 * precision_amount * recall_amount / (precision_amount + recall_amount)) if (precision_amount + recall_amount) else 0.0,
+        "risk_region_f1_amount": float(2 * precision_amount * recall_amount / (precision_amount + recall_amount))
+        if (precision_amount + recall_amount)
+        else 0.0,
     }
 
 
@@ -63,7 +67,12 @@ def apply_risk_envelope_pruning(preds: pd.DataFrame, capacity_fraction: float = 
             metrics["envelope_rate"] = float(df["risk_envelope_flag"].mean())
             util = _operating_utility(metrics)
             if util > best["utility"]:
-                best = {"utility": util, "score": score, "metrics": metrics, "weights": {"env_boost": env_boost, "prior_weight": prior_weight}}
+                best = {
+                    "utility": util,
+                    "score": score,
+                    "metrics": metrics,
+                    "weights": {"env_boost": env_boost, "prior_weight": prior_weight},
+                }
     df["score_envelope_pruned"] = best["score"]
     metrics = best["metrics"]
     metrics["selected_weights"] = best["weights"]

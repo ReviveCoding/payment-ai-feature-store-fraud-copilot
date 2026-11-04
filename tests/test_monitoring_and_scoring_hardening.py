@@ -1,12 +1,14 @@
 from pathlib import Path
+
 import pandas as pd
-from src.data_generation.generate_sample_data import generate_public_style_fraud_sample
+
 from src.adapters.canonical import combine_sources
-from src.spark_jobs.build_payment_features import build_features
-from src.monitoring.data_quality import evaluate_data_quality, evaluate_backfill_idempotence
-from src.monitoring.model_monitoring_baseline import build_monitoring_baseline
 from src.batch_scoring.score_batch import build_batch_scoring_sample
-from src.feature_store.point_in_time_join import build_training_set, MODEL_FEATURES
+from src.data_generation.generate_sample_data import generate_public_style_fraud_sample
+from src.feature_store.point_in_time_join import MODEL_FEATURES, build_training_set
+from src.monitoring.data_quality import evaluate_backfill_idempotence, evaluate_data_quality
+from src.monitoring.model_monitoring_baseline import build_monitoring_baseline
+from src.spark_jobs.build_payment_features import build_features
 
 
 def test_data_quality_and_backfill_idempotence(tmp_path):

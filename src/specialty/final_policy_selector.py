@@ -1,6 +1,8 @@
 from __future__ import annotations
+
 import numpy as np
 import pandas as pd
+
 from src.modeling.metrics import evaluate_scores
 
 
@@ -13,7 +15,9 @@ def operating_utility(metrics: dict) -> float:
     )
 
 
-def select_final_policy(preds: pd.DataFrame, candidate_score_cols: list[str], capacity_fraction: float = 0.05) -> tuple[pd.DataFrame, dict]:
+def select_final_policy(
+    preds: pd.DataFrame, candidate_score_cols: list[str], capacity_fraction: float = 0.05
+) -> tuple[pd.DataFrame, dict]:
     """Select the final operating score from champion/challenger candidates.
 
     This prevents an experimental specialty module from degrading the final release

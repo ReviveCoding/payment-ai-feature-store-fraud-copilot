@@ -1,10 +1,19 @@
 from __future__ import annotations
-from pathlib import Path
+
 from datetime import datetime, timezone
+from pathlib import Path
+
 from src.utils import write_json
 
 
-def register_local_model_package(out_path: str | Path, model_path: str, metrics: dict, approval_status: str, feature_names: list[str], governance_artifacts: dict | None = None) -> dict:
+def register_local_model_package(
+    out_path: str | Path,
+    model_path: str,
+    metrics: dict,
+    approval_status: str,
+    feature_names: list[str],
+    governance_artifacts: dict | None = None,
+) -> dict:
     package = {
         "model_package_group_name": "payment-fraud-risk-models",
         "model_version": "1.0.0-local",

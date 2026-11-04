@@ -1,13 +1,14 @@
-from pathlib import Path
 import sys
+from pathlib import Path
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.data_generation.generate_sample_data import generate_public_style_fraud_sample
-from src.spark_jobs.build_payment_features import build_features
-from src.feature_store.offline_store import write_partitioned_offline_store, read_offline_store
+from src.feature_store.offline_store import read_offline_store, write_partitioned_offline_store
 from src.feature_store.online_lookup import build_online_store
 from src.feature_store.parity_checks import offline_online_parity
+from src.spark_jobs.build_payment_features import build_features
 
 
 def test_offline_online_feature_store(tmp_path):

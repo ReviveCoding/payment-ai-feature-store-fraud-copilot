@@ -1,13 +1,14 @@
-from pathlib import Path
 import sys
+from pathlib import Path
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src.data_generation.generate_sample_data import generate_public_style_fraud_sample
 from src.adapters.canonical import combine_sources, validate_canonical
-from src.spark_jobs.build_payment_features import build_features
-from src.feature_store.point_in_time_join import validate_point_in_time, build_training_set
+from src.data_generation.generate_sample_data import generate_public_style_fraud_sample
+from src.feature_store.point_in_time_join import build_training_set, validate_point_in_time
 from src.modeling.metrics import evaluate_scores
+from src.spark_jobs.build_payment_features import build_features
 
 
 def test_canonical_schema_validates():

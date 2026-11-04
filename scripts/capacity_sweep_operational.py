@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import json
@@ -23,15 +23,14 @@ OUTPUTS = ROOT / "outputs"
 sys.path.insert(0, str(ROOT))
 
 from scripts.run_operational_benchmark import (  # noqa: E402
-    read_config,
-    safe_path,
-    load_paysim,
+    add_operational_features,
     load_baf,
     load_ieee,
-    add_operational_features,
+    load_paysim,
+    read_config,
+    safe_path,
     temporal_split,
 )
-
 
 CAPACITIES = [0.01, 0.02, 0.05, 0.10]
 
@@ -74,13 +73,21 @@ def build_preprocessor():
     ]
     categorical = ["dataset_source", "payment_type"]
 
-    pre = ColumnTransformer([
-        ("num", Pipeline([
-            ("imputer", SimpleImputer(strategy="median")),
-            ("scaler", StandardScaler()),
-        ]), numeric),
-        ("cat", OneHotEncoder(handle_unknown="ignore"), categorical),
-    ])
+    pre = ColumnTransformer(
+        [
+            (
+                "num",
+                Pipeline(
+                    [
+                        ("imputer", SimpleImputer(strategy="median")),
+                        ("scaler", StandardScaler()),
+                    ]
+                ),
+                numeric,
+            ),
+            ("cat", OneHotEncoder(handle_unknown="ignore"), categorical),
+        ]
+    )
 
     return pre, numeric + categorical
 
@@ -162,13 +169,7 @@ def multi_capacity_utility(y_true, score, amount, capacities=CAPACITIES) -> floa
     pr_auc = global_m["pr_auc"] or 0.0
     brier = global_m["brier"] if global_m["brier"] is not None else 1.0
 
-    return (
-        0.35 * pr_auc
-        + 0.20 * avg_precision
-        + 0.25 * avg_recall
-        + 0.25 * avg_loss_capture
-        - 0.10 * brier
-    )
+    return 0.35 * pr_auc + 0.20 * avg_precision + 0.25 * avg_recall + 0.25 * avg_loss_capture - 0.10 * brier
 
 
 def load_dataset(dataset: str, max_rows: int | None) -> pd.DataFrame:
@@ -269,30 +270,34 @@ def run_capacity_sweep(dataset: str, max_rows: int | None):
 
     for model_name, score in test_scores.items():
         g = safe_global_metrics(test["label"], score)
-        global_rows.append({
-            "dataset": dataset,
-            "model": model_name,
-            "rows": int(len(test)),
-            "positive_rate": float(test["label"].mean()),
-            "pr_auc": g["pr_auc"],
-            "roc_auc": g["roc_auc"],
-            "brier": g["brier"],
-            "train_seconds": train_seconds.get(model_name),
-            "selected_alpha": results[model_name].get("selected_alpha_from_validation"),
-            "base_model": results[model_name].get("base_model"),
-        })
-
-        for cap in CAPACITIES:
-            m = capacity_metrics(test["label"], score, test["amount"], cap)
-            rows.append({
+        global_rows.append(
+            {
                 "dataset": dataset,
                 "model": model_name,
-                "capacity_pct": int(cap * 100),
-                **m,
+                "rows": int(len(test)),
+                "positive_rate": float(test["label"].mean()),
                 "pr_auc": g["pr_auc"],
                 "roc_auc": g["roc_auc"],
                 "brier": g["brier"],
-            })
+                "train_seconds": train_seconds.get(model_name),
+                "selected_alpha": results[model_name].get("selected_alpha_from_validation"),
+                "base_model": results[model_name].get("base_model"),
+            }
+        )
+
+        for cap in CAPACITIES:
+            m = capacity_metrics(test["label"], score, test["amount"], cap)
+            rows.append(
+                {
+                    "dataset": dataset,
+                    "model": model_name,
+                    "capacity_pct": int(cap * 100),
+                    **m,
+                    "pr_auc": g["pr_auc"],
+                    "roc_auc": g["roc_auc"],
+                    "brier": g["brier"],
+                }
+            )
 
     cap_df = pd.DataFrame(rows)
     global_df = pd.DataFrame(global_rows)
@@ -371,20 +376,27 @@ def run_capacity_sweep(dataset: str, max_rows: int | None):
     md.append("- Precision@capacity asks how accurate the review queue is.")
     md.append("- Recall@capacity asks how many fraud events are captured within the review queue.")
     md.append("- Fraud-loss capture asks how much fraud amount is captured within the review queue.")
-    md.append("- Do not claim one model is globally best unless it wins the relevant operating metric and capacity range.")
+    md.append(
+        "- Do not claim one model is globally best unless it wins the relevant operating metric and capacity range."
+    )
     md.append("- This is not production approval or real bank deployment evidence.")
 
     out_md.write_text("\n".join(md) + "\n", encoding="utf-8")
 
-    print(json.dumps({
-        "status": "ok",
-        "dataset": dataset,
-        "loaded_rows": int(len(df)),
-        "test_rows": int(len(test)),
-        "report": str(out_md),
-        "csv": str(cap_csv),
-        "json": str(out_json),
-    }, indent=2))
+    print(
+        json.dumps(
+            {
+                "status": "ok",
+                "dataset": dataset,
+                "loaded_rows": int(len(df)),
+                "test_rows": int(len(test)),
+                "report": str(out_md),
+                "csv": str(cap_csv),
+                "json": str(out_json),
+            },
+            indent=2,
+        )
+    )
 
 
 def main():

@@ -1,6 +1,9 @@
 from __future__ import annotations
+
 from pathlib import Path
+
 import pandas as pd
+
 from src.data_generation.generate_sample_data import generate_public_style_fraud_sample
 
 
@@ -25,25 +28,27 @@ def load_user_supplied_csv(path: str | Path, source_name: str) -> pd.DataFrame:
         raise ValueError(f"Cannot map {path}; amount and label columns were not found.")
     n = len(raw)
     event_time = pd.Timestamp("2025-01-01") + pd.to_timedelta(range(n), unit="m")
-    return pd.DataFrame({
-        "dataset_source": source_name,
-        "event_id": [f"{source_name}-{i:07d}" for i in range(n)],
-        "event_time": event_time,
-        "account_id_hash": [f"acct_{i % 1000:05d}" for i in range(n)],
-        "customer_id_hash": [f"cust_{i % 1000:05d}" for i in range(n)],
-        "device_id_hash": [f"dev_{i % 350:05d}" for i in range(n)],
-        "counterparty_id_hash": [f"cp_{i % 800:05d}" for i in range(n)],
-        "amount": pd.to_numeric(raw[amount_col], errors="coerce").fillna(0),
-        "currency": "USD",
-        "channel": "public_dataset",
-        "payment_type": "public_dataset_transaction",
-        "payment_status": "ACSP",
-        "failure_reason": "",
-        "fraud_type_proxy": "public_label_proxy",
-        "risk_label": pd.to_numeric(raw[label_col], errors="coerce").fillna(0).astype(int),
-        "debtor_country": "UNK",
-        "creditor_country": "UNK",
-        "processing_time_secs": 0,
-        "purpose_code": "UNK",
-        "source_file": str(path.name),
-    })
+    return pd.DataFrame(
+        {
+            "dataset_source": source_name,
+            "event_id": [f"{source_name}-{i:07d}" for i in range(n)],
+            "event_time": event_time,
+            "account_id_hash": [f"acct_{i % 1000:05d}" for i in range(n)],
+            "customer_id_hash": [f"cust_{i % 1000:05d}" for i in range(n)],
+            "device_id_hash": [f"dev_{i % 350:05d}" for i in range(n)],
+            "counterparty_id_hash": [f"cp_{i % 800:05d}" for i in range(n)],
+            "amount": pd.to_numeric(raw[amount_col], errors="coerce").fillna(0),
+            "currency": "USD",
+            "channel": "public_dataset",
+            "payment_type": "public_dataset_transaction",
+            "payment_status": "ACSP",
+            "failure_reason": "",
+            "fraud_type_proxy": "public_label_proxy",
+            "risk_label": pd.to_numeric(raw[label_col], errors="coerce").fillna(0).astype(int),
+            "debtor_country": "UNK",
+            "creditor_country": "UNK",
+            "processing_time_secs": 0,
+            "purpose_code": "UNK",
+            "source_file": str(path.name),
+        }
+    )

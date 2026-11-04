@@ -1,6 +1,7 @@
 from __future__ import annotations
+
 import numpy as np
-from sklearn.metrics import average_precision_score, roc_auc_score, precision_score, recall_score, brier_score_loss
+from sklearn.metrics import average_precision_score, brier_score_loss, precision_score, recall_score, roc_auc_score
 
 
 def expected_calibration_error(y_true, y_score, bins: int = 10) -> float:

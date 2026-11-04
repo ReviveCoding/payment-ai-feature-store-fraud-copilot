@@ -1,12 +1,14 @@
 from __future__ import annotations
+
 import importlib.util
 import time
 from pathlib import Path
+
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score, accuracy_score
 
 
 def run_transformer_routing_smoke(cfpb_df: pd.DataFrame, out_path: str | Path | None = None) -> dict:
@@ -19,13 +21,23 @@ def run_transformer_routing_smoke(cfpb_df: pd.DataFrame, out_path: str | Path | 
     out_path = Path(out_path) if out_path else None
     df = cfpb_df.copy()
     if "narrative" not in df.columns:
-        return {"status": "SKIPPED", "reason": "narrative column not found", "transformers_available": bool(importlib.util.find_spec("transformers"))}
+        return {
+            "status": "SKIPPED",
+            "reason": "narrative column not found",
+            "transformers_available": bool(importlib.util.find_spec("transformers")),
+        }
     label_col = "issue" if "issue" in df.columns else "severity" if "severity" in df.columns else None
     if label_col is None or df[label_col].nunique() < 2:
-        return {"status": "SKIPPED", "reason": "no multi-class routing label found", "transformers_available": bool(importlib.util.find_spec("transformers"))}
+        return {
+            "status": "SKIPPED",
+            "reason": "no multi-class routing label found",
+            "transformers_available": bool(importlib.util.find_spec("transformers")),
+        }
     n = len(df)
     test_size = 0.30 if n >= 50 else 0.25
-    train, test = train_test_split(df, test_size=test_size, random_state=42, stratify=df[label_col] if df[label_col].nunique() > 1 else None)
+    train, test = train_test_split(
+        df, test_size=test_size, random_state=42, stratify=df[label_col] if df[label_col].nunique() > 1 else None
+    )
     vectorizer = TfidfVectorizer(ngram_range=(1, 2), min_df=1, max_features=2000)
     X_train = vectorizer.fit_transform(train["narrative"].astype(str))
     X_test = vectorizer.transform(test["narrative"].astype(str))

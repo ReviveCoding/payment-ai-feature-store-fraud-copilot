@@ -1,6 +1,8 @@
 from __future__ import annotations
-from pathlib import Path
+
 import json
+from pathlib import Path
+
 import pandas as pd
 
 
@@ -11,10 +13,12 @@ def write_partitioned_offline_store(features: pd.DataFrame, out_dir: str | Path)
     engine = None
     try:
         import pyarrow  # noqa: F401
+
         engine = "pyarrow"
     except Exception:
         try:
             import fastparquet  # noqa: F401
+
             engine = "fastparquet"
         except Exception:
             engine = None
@@ -30,7 +34,14 @@ def write_partitioned_offline_store(features: pd.DataFrame, out_dir: str | Path)
             fpath = pdir / "features.csv"
             part.to_csv(fpath, index=False)
             manifest["format"] = "csv_fallback_parquet_recommended"
-        manifest["partitions"].append({"dataset_source": str(source), "event_date": str(date), "path": str(fpath.relative_to(out_dir)), "rows": int(len(part))})
+        manifest["partitions"].append(
+            {
+                "dataset_source": str(source),
+                "event_date": str(date),
+                "path": str(fpath.relative_to(out_dir)),
+                "rows": int(len(part)),
+            }
+        )
     (out_dir / "_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     return manifest
 

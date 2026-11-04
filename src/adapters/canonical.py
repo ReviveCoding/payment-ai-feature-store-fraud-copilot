@@ -1,9 +1,19 @@
 from __future__ import annotations
+
 import pandas as pd
 
 REQUIRED_COLUMNS = [
-    "dataset_source", "event_id", "event_time", "account_id_hash", "counterparty_id_hash",
-    "amount", "currency", "channel", "payment_type", "payment_status", "risk_label"
+    "dataset_source",
+    "event_id",
+    "event_time",
+    "account_id_hash",
+    "counterparty_id_hash",
+    "amount",
+    "currency",
+    "channel",
+    "payment_type",
+    "payment_status",
+    "risk_label",
 ]
 
 
@@ -25,7 +35,16 @@ def combine_sources(frames: list[pd.DataFrame]) -> pd.DataFrame:
     df = pd.concat(nonempty, ignore_index=True, sort=False)
     df["event_time"] = pd.to_datetime(df["event_time"], errors="coerce")
     df = df.dropna(subset=["event_time"]).sort_values("event_time").reset_index(drop=True)
-    for col in ["device_id_hash", "customer_id_hash", "failure_reason", "fraud_type_proxy", "debtor_country", "creditor_country", "purpose_code", "source_file"]:
+    for col in [
+        "device_id_hash",
+        "customer_id_hash",
+        "failure_reason",
+        "fraud_type_proxy",
+        "debtor_country",
+        "creditor_country",
+        "purpose_code",
+        "source_file",
+    ]:
         if col not in df.columns:
             df[col] = "not_available"
     if "processing_time_secs" not in df.columns:
