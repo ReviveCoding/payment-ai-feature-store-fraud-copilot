@@ -1,44 +1,46 @@
 from __future__ import annotations
+
 import argparse
-from pathlib import Path
-import sys
 import json
+import sys
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 import pandas as pd
-from src.config import DATA, OUTPUTS, REPORTS, MODELS, CONFIGS
-from src.utils import read_yaml, write_json
-from src.adapters.iso20022_adapter import load_iso20022_zip
-from src.adapters.public_fraud_adapter import load_or_generate_public_fraud
-from src.adapters.public_benchmark_adapters import load_public_benchmarks_from_config
-from src.adapters.cfpb_adapter import load_or_generate_cfpb_sample
+
+from scripts.local_runnable_audit import run_audit
 from src.adapters.canonical import combine_sources, validate_canonical
-from src.spark_jobs.build_payment_features import build_features, spark_sql_style_validation
+from src.adapters.cfpb_adapter import load_or_generate_cfpb_sample
+from src.adapters.iso20022_adapter import load_iso20022_zip
+from src.adapters.public_benchmark_adapters import load_public_benchmarks_from_config
+from src.adapters.public_fraud_adapter import load_or_generate_public_fraud
+from src.batch_scoring.score_batch import build_batch_scoring_sample
+from src.config import CONFIGS, DATA, MODELS, OUTPUTS, REPORTS
 from src.feature_store.offline_store import write_partitioned_offline_store
 from src.feature_store.online_lookup import build_online_store
-from src.feature_store.point_in_time_join import build_training_set, validate_point_in_time
 from src.feature_store.parity_checks import offline_online_parity
-from src.modeling.train_models import train_vanilla_models, temporal_split
-from src.specialty.residual_risk_correction import apply_residual_correction
-from src.specialty.risk_envelope_pruning import apply_risk_envelope_pruning
-from src.specialty.final_policy_selector import select_final_policy
-from src.simulation.kpi_policy_simulator import simulate_policy_scenarios
-from src.simulation.stress_testing import run_score_stress_tests
-from src.sagemaker_pipeline.pipeline import build_sagemaker_compatible_pipeline_spec
-from src.sagemaker_pipeline.register_model_step import register_local_model_package
-from src.monitoring.release_gate import evaluate_release_gates
-from src.monitoring.drift import drift_report
-from src.monitoring.data_quality import evaluate_data_quality, evaluate_backfill_idempotence
-from src.monitoring.model_monitoring_baseline import build_monitoring_baseline
+from src.feature_store.point_in_time_join import build_training_set, validate_point_in_time
 from src.modeling.explainability import compute_feature_importance
-from src.batch_scoring.score_batch import build_batch_scoring_sample
+from src.modeling.train_models import temporal_split, train_vanilla_models
+from src.monitoring.data_quality import evaluate_backfill_idempotence, evaluate_data_quality
+from src.monitoring.drift import drift_report
+from src.monitoring.model_monitoring_baseline import build_monitoring_baseline
+from src.monitoring.release_gate import evaluate_release_gates
+from src.nlp.transformer_text_routing import run_transformer_routing_smoke
 from src.rag_investigation.retrieve_evidence import retrieve_evidence
 from src.rag_investigation.summarize_case import summarize_case
-from src.nlp.transformer_text_routing import run_transformer_routing_smoke
 from src.reporting import write_core_reports
-from scripts.local_runnable_audit import run_audit
+from src.sagemaker_pipeline.pipeline import build_sagemaker_compatible_pipeline_spec
+from src.sagemaker_pipeline.register_model_step import register_local_model_package
+from src.simulation.kpi_policy_simulator import simulate_policy_scenarios
+from src.simulation.stress_testing import run_score_stress_tests
+from src.spark_jobs.build_payment_features import build_features, spark_sql_style_validation
+from src.specialty.final_policy_selector import select_final_policy
+from src.specialty.residual_risk_correction import apply_residual_correction
+from src.specialty.risk_envelope_pruning import apply_risk_envelope_pruning
+from src.utils import read_yaml, write_json
 
 
 def main():
@@ -52,7 +54,9 @@ def main():
     n = int(model_config.get("sample_size", 2500))
 
     # 1. Load/generate data.
-    public_frames, public_benchmark_status = load_public_benchmarks_from_config(dataset_config, max_rows=max(500, n // 2))
+    public_frames, public_benchmark_status = load_public_benchmarks_from_config(
+        dataset_config, max_rows=max(500, n // 2)
+    )
     if public_frames:
         # Keep generated public-style data as a stable baseline and add real user-supplied
         # public benchmark rows when local files are configured.
@@ -94,19 +98,29 @@ def main():
     drift = drift_report(train_split, test_split, train_result["feature_names"][:8])
 
     # 4. Specialty improvements.
-    preds, residual_metrics = apply_residual_correction(preds, capacity_fraction=float(model_config.get("review_capacity_fraction", 0.05)))
-    preds, envelope_metrics = apply_risk_envelope_pruning(preds, capacity_fraction=float(model_config.get("review_capacity_fraction", 0.05)))
+    preds, residual_metrics = apply_residual_correction(
+        preds, capacity_fraction=float(model_config.get("review_capacity_fraction", 0.05))
+    )
+    preds, envelope_metrics = apply_risk_envelope_pruning(
+        preds, capacity_fraction=float(model_config.get("review_capacity_fraction", 0.05))
+    )
     preds, final_policy_metrics = select_final_policy(
         preds,
         ["score_operating_champion", "score_residual_corrected", "score_envelope_pruned"],
         capacity_fraction=float(model_config.get("review_capacity_fraction", 0.05)),
     )
     # Inherit latency proxy from the selected operating champion for local specialty policies.
-    final_policy_metrics["p95_latency_ms_proxy"] = baseline_metrics_latency = train_result["results"].get(train_result["best_model_name"], {}).get("p95_latency_ms_proxy", 50)
+    final_policy_metrics["p95_latency_ms_proxy"] = baseline_metrics_latency = (
+        train_result["results"].get(train_result["best_model_name"], {}).get("p95_latency_ms_proxy", 50)
+    )
     residual_metrics["p95_latency_ms_proxy"] = baseline_metrics_latency
     envelope_metrics["p95_latency_ms_proxy"] = baseline_metrics_latency
     preds.to_csv(OUTPUTS / "test_predictions_with_specialty.csv", index=False)
-    stress_tests = run_score_stress_tests(preds, "score_final_operating_policy", capacity_fraction=float(model_config.get("review_capacity_fraction", 0.05)))
+    stress_tests = run_score_stress_tests(
+        preds,
+        "score_final_operating_policy",
+        capacity_fraction=float(model_config.get("review_capacity_fraction", 0.05)),
+    )
     explainability = compute_feature_importance(train_result["model_path"], test_split, OUTPUTS)
     monitoring_baseline = build_monitoring_baseline(train_split, preds, train_result["feature_names"], OUTPUTS)
     batch_scoring = build_batch_scoring_sample(preds, OUTPUTS / "batch_scoring_sample.csv")
@@ -120,7 +134,13 @@ def main():
 
     # 6. SageMaker-compatible artifacts.
     build_sagemaker_compatible_pipeline_spec(DATA / "model_registry" / "sagemaker_compatible_pipeline.json")
-    approval = "Approved" if release["decision"] == "PASS" else "PendingManualApproval" if release["decision"] == "REVIEW" else "Rejected"
+    approval = (
+        "Approved"
+        if release["decision"] == "PASS"
+        else "PendingManualApproval"
+        if release["decision"] == "REVIEW"
+        else "Rejected"
+    )
     register_local_model_package(
         DATA / "model_registry" / "model_package.json",
         train_result["model_path"],
@@ -166,17 +186,38 @@ def main():
         "explainability": explainability,
         "batch_scoring": batch_scoring,
         "model_results": train_result["results"],
-        "model_selection": {"best_pr_auc_model_name": train_result.get("best_pr_auc_model_name"), "policy_model_name": train_result.get("policy_model_name"), "selected_operating_champion": train_result.get("best_model_name")},
+        "model_selection": {
+            "best_pr_auc_model_name": train_result.get("best_pr_auc_model_name"),
+            "policy_model_name": train_result.get("policy_model_name"),
+            "selected_operating_champion": train_result.get("best_model_name"),
+        },
         "drift": drift,
         "stress_tests": stress_tests,
-        "specialty_metrics": {"residual_corrected": residual_metrics, "envelope_pruned": envelope_metrics, "final_operating_policy": final_policy_metrics},
+        "specialty_metrics": {
+            "residual_corrected": residual_metrics,
+            "envelope_pruned": envelope_metrics,
+            "final_operating_policy": final_policy_metrics,
+        },
         "kpi_scenarios": kpi,
         "release": release,
     }
     write_json(OUTPUTS / "run_artifacts.json", {k: v for k, v in artifacts.items() if not hasattr(v, "to_dict")})
     write_core_reports(ROOT, artifacts)
     audit = run_audit()
-    print(json.dumps({"status": "ok", "rows": len(events), "feature_rows": len(features), "release_decision": release["decision"], "best_model": train_result["best_model_name"], "audit": audit["status"]}, indent=2))
+    print(
+        json.dumps(
+            {
+                "status": "ok",
+                "rows": len(events),
+                "feature_rows": len(features),
+                "release_decision": release["decision"],
+                "best_model": train_result["best_model_name"],
+                "audit": audit["status"],
+            },
+            indent=2,
+        )
+    )
+
 
 if __name__ == "__main__":
     main()

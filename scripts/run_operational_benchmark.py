@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import json
@@ -15,7 +15,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import average_precision_score, brier_score_loss, precision_score, recall_score, roc_auc_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
-
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "reports"
@@ -39,24 +38,36 @@ def safe_path(value: str | None) -> Path | None:
 def load_paysim(path: Path, max_rows: int | None) -> pd.DataFrame:
     usecols = ["step", "type", "amount", "nameOrig", "nameDest", "isFraud"]
     df = pd.read_csv(path, usecols=usecols, nrows=max_rows)
-    out = pd.DataFrame({
-        "dataset_source": "paysim",
-        "event_time": pd.to_numeric(df["step"], errors="coerce").fillna(0),
-        "amount": pd.to_numeric(df["amount"], errors="coerce").fillna(0),
-        "payment_type": df["type"].astype(str),
-        "account_id": df["nameOrig"].astype(str),
-        "counterparty_id": df["nameDest"].astype(str),
-        "label": pd.to_numeric(df["isFraud"], errors="coerce").fillna(0).astype(int),
-    })
+    out = pd.DataFrame(
+        {
+            "dataset_source": "paysim",
+            "event_time": pd.to_numeric(df["step"], errors="coerce").fillna(0),
+            "amount": pd.to_numeric(df["amount"], errors="coerce").fillna(0),
+            "payment_type": df["type"].astype(str),
+            "account_id": df["nameOrig"].astype(str),
+            "counterparty_id": df["nameDest"].astype(str),
+            "label": pd.to_numeric(df["isFraud"], errors="coerce").fillna(0).astype(int),
+        }
+    )
     return out
 
 
 def load_baf(path: Path, max_rows: int | None) -> pd.DataFrame:
     header = pd.read_csv(path, nrows=0).columns.tolist()
-    keep = [c for c in [
-        "fraud_bool", "income", "credit_risk_score", "proposed_credit_limit",
-        "customer_age", "device_os", "source", "month"
-    ] if c in header]
+    keep = [
+        c
+        for c in [
+            "fraud_bool",
+            "income",
+            "credit_risk_score",
+            "proposed_credit_limit",
+            "customer_age",
+            "device_os",
+            "source",
+            "month",
+        ]
+        if c in header
+    ]
     df = pd.read_csv(path, usecols=keep, nrows=max_rows)
 
     amount_col = None
@@ -69,35 +80,42 @@ def load_baf(path: Path, max_rows: int | None) -> pd.DataFrame:
     payment_type = df["source"] if "source" in df.columns else "account_opening"
     device = df["device_os"] if "device_os" in df.columns else "unknown"
 
-    out = pd.DataFrame({
-        "dataset_source": "baf",
-        "event_time": pd.to_numeric(event_time, errors="coerce").fillna(0),
-        "amount": pd.to_numeric(df[amount_col], errors="coerce").fillna(0) if amount_col else 1.0,
-        "payment_type": payment_type.astype(str),
-        "account_id": pd.Series(np.arange(len(df))).astype(str),
-        "counterparty_id": device.astype(str),
-        "label": pd.to_numeric(df["fraud_bool"], errors="coerce").fillna(0).astype(int),
-    })
+    out = pd.DataFrame(
+        {
+            "dataset_source": "baf",
+            "event_time": pd.to_numeric(event_time, errors="coerce").fillna(0),
+            "amount": pd.to_numeric(df[amount_col], errors="coerce").fillna(0) if amount_col else 1.0,
+            "payment_type": payment_type.astype(str),
+            "account_id": pd.Series(np.arange(len(df))).astype(str),
+            "counterparty_id": device.astype(str),
+            "label": pd.to_numeric(df["fraud_bool"], errors="coerce").fillna(0).astype(int),
+        }
+    )
     return out
 
 
 def load_ieee(path: Path, max_rows: int | None) -> pd.DataFrame:
     header = pd.read_csv(path, nrows=0).columns.tolist()
-    keep = [c for c in [
-        "TransactionID", "TransactionDT", "TransactionAmt", "ProductCD",
-        "card1", "addr1", "isFraud"
-    ] if c in header]
+    keep = [
+        c
+        for c in ["TransactionID", "TransactionDT", "TransactionAmt", "ProductCD", "card1", "addr1", "isFraud"]
+        if c in header
+    ]
     df = pd.read_csv(path, usecols=keep, nrows=max_rows)
 
-    out = pd.DataFrame({
-        "dataset_source": "ieee_cis",
-        "event_time": pd.to_numeric(df.get("TransactionDT", pd.Series(np.arange(len(df)))), errors="coerce").fillna(0),
-        "amount": pd.to_numeric(df["TransactionAmt"], errors="coerce").fillna(0),
-        "payment_type": df.get("ProductCD", "unknown").astype(str),
-        "account_id": df.get("card1", pd.Series(np.arange(len(df)))).astype(str),
-        "counterparty_id": df.get("addr1", "unknown").astype(str),
-        "label": pd.to_numeric(df["isFraud"], errors="coerce").fillna(0).astype(int),
-    })
+    out = pd.DataFrame(
+        {
+            "dataset_source": "ieee_cis",
+            "event_time": pd.to_numeric(df.get("TransactionDT", pd.Series(np.arange(len(df)))), errors="coerce").fillna(
+                0
+            ),
+            "amount": pd.to_numeric(df["TransactionAmt"], errors="coerce").fillna(0),
+            "payment_type": df.get("ProductCD", "unknown").astype(str),
+            "account_id": df.get("card1", pd.Series(np.arange(len(df)))).astype(str),
+            "counterparty_id": df.get("addr1", "unknown").astype(str),
+            "label": pd.to_numeric(df["isFraud"], errors="coerce").fillna(0).astype(int),
+        }
+    )
     return out
 
 
@@ -138,20 +156,34 @@ def temporal_split(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.Dat
 
 def build_preprocessor():
     numeric = [
-        "event_time", "amount", "amount_log", "high_amount_flag",
-        "account_txn_count_prior", "counterparty_txn_count_prior",
-        "new_counterparty_flag", "account_amount_mean_prior",
-        "amount_ratio_to_prior_mean", "risk_prior",
+        "event_time",
+        "amount",
+        "amount_log",
+        "high_amount_flag",
+        "account_txn_count_prior",
+        "counterparty_txn_count_prior",
+        "new_counterparty_flag",
+        "account_amount_mean_prior",
+        "amount_ratio_to_prior_mean",
+        "risk_prior",
     ]
     categorical = ["dataset_source", "payment_type"]
 
-    return ColumnTransformer([
-        ("num", Pipeline([
-            ("imputer", SimpleImputer(strategy="median")),
-            ("scaler", StandardScaler()),
-        ]), numeric),
-        ("cat", OneHotEncoder(handle_unknown="ignore"), categorical),
-    ]), numeric + categorical
+    return ColumnTransformer(
+        [
+            (
+                "num",
+                Pipeline(
+                    [
+                        ("imputer", SimpleImputer(strategy="median")),
+                        ("scaler", StandardScaler()),
+                    ]
+                ),
+                numeric,
+            ),
+            ("cat", OneHotEncoder(handle_unknown="ignore"), categorical),
+        ]
+    ), numeric + categorical
 
 
 def evaluate(y_true, score, amount, capacity: float = 0.05) -> dict:
@@ -189,14 +221,18 @@ def fit_models(train: pd.DataFrame, val: pd.DataFrame, test: pd.DataFrame) -> di
     X_test, y_test = test[features], test["label"]
 
     models = {
-        "logistic_regression": Pipeline([
-            ("pre", pre),
-            ("clf", LogisticRegression(max_iter=500, class_weight="balanced")),
-        ]),
-        "hist_gradient_boosting": Pipeline([
-            ("pre", pre),
-            ("clf", HistGradientBoostingClassifier(max_iter=120, learning_rate=0.07, random_state=42)),
-        ]),
+        "logistic_regression": Pipeline(
+            [
+                ("pre", pre),
+                ("clf", LogisticRegression(max_iter=500, class_weight="balanced")),
+            ]
+        ),
+        "hist_gradient_boosting": Pipeline(
+            [
+                ("pre", pre),
+                ("clf", HistGradientBoostingClassifier(max_iter=120, learning_rate=0.07, random_state=42)),
+            ]
+        ),
     }
 
     results = {}
@@ -239,10 +275,7 @@ def fit_models(train: pd.DataFrame, val: pd.DataFrame, test: pd.DataFrame) -> di
         enhanced_val = np.clip((1 - alpha) * base_val + alpha * val_prior, 0, 1)
         m = evaluate(y_val, enhanced_val, val["amount"])
         utility = (
-            (m["pr_auc"] or 0)
-            + 0.4 * m["precision_at_5pct"]
-            + 0.4 * m["fraud_loss_capture_rate"]
-            - 0.2 * m["brier"]
+            (m["pr_auc"] or 0) + 0.4 * m["precision_at_5pct"] + 0.4 * m["fraud_loss_capture_rate"] - 0.2 * m["brier"]
         )
         if utility > best_utility:
             best_utility = utility
@@ -280,7 +313,9 @@ def write_report(dataset: str, mode: str, max_rows: int | None, rows: int, resul
     md.append("- claim boundary: public/proxy benchmark only, not JPMC or proprietary bank data\n")
 
     md.append("## Test Metrics\n")
-    md.append("| model | pr_auc | roc_auc | precision_at_5pct | recall_at_5pct | fraud_loss_capture_rate | brier | train_seconds |")
+    md.append(
+        "| model | pr_auc | roc_auc | precision_at_5pct | recall_at_5pct | fraud_loss_capture_rate | brier | train_seconds |"
+    )
     md.append("|---|---:|---:|---:|---:|---:|---:|---:|")
     for name, block in results.items():
         test = block["test"]
@@ -293,19 +328,26 @@ def write_report(dataset: str, mode: str, max_rows: int | None, rows: int, resul
 
     md.append("\n## Interpretation\n")
     md.append("- Baselines show standard fraud-risk model performance under temporal split.")
-    md.append("- `mechanism_informed_enhanced` uses validation-selected fusion between the best baseline score and a payment-risk prior.")
+    md.append(
+        "- `mechanism_informed_enhanced` uses validation-selected fusion between the best baseline score and a payment-risk prior."
+    )
     md.append("- This is an operational benchmark extension, not a production deployment or formal model approval.")
 
     out_md = REPORTS / f"full_benchmark_operational_report_{dataset}.md"
     out_md.write_text("\n".join(md) + "\n", encoding="utf-8")
 
-    print(json.dumps({
-        "status": "ok",
-        "dataset": dataset,
-        "rows": rows,
-        "report": str(out_md),
-        "json": str(out_json),
-    }, indent=2))
+    print(
+        json.dumps(
+            {
+                "status": "ok",
+                "dataset": dataset,
+                "rows": rows,
+                "report": str(out_md),
+                "json": str(out_json),
+            },
+            indent=2,
+        )
+    )
 
 
 def main():

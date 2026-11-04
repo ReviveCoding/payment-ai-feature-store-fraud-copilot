@@ -1,14 +1,17 @@
 from __future__ import annotations
-from pathlib import Path
+
 import time
+from pathlib import Path
+
 import joblib
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
 from sklearn.calibration import CalibratedClassifierCV
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+
 from src.feature_store.point_in_time_join import MODEL_FEATURES
 from src.modeling.metrics import evaluate_scores
 
@@ -34,7 +37,9 @@ def _policy_utility(metrics: dict) -> float:
     )
 
 
-def train_vanilla_models(training_set: pd.DataFrame, model_dir: str | Path, test_fraction: float = 0.25, capacity_fraction: float = 0.05) -> dict:
+def train_vanilla_models(
+    training_set: pd.DataFrame, model_dir: str | Path, test_fraction: float = 0.25, capacity_fraction: float = 0.05
+) -> dict:
     model_dir = Path(model_dir)
     model_dir.mkdir(parents=True, exist_ok=True)
     train, test = temporal_split(training_set, test_fraction)
@@ -43,18 +48,29 @@ def train_vanilla_models(training_set: pd.DataFrame, model_dir: str | Path, test
     amount_test = test["amount"].values
 
     candidates = {
-        "logistic_regression": Pipeline([("scaler", StandardScaler()), ("clf", LogisticRegression(max_iter=500, class_weight="balanced"))]),
-        "random_forest": RandomForestClassifier(n_estimators=120, random_state=42, class_weight="balanced_subsample", min_samples_leaf=3),
+        "logistic_regression": Pipeline(
+            [("scaler", StandardScaler()), ("clf", LogisticRegression(max_iter=500, class_weight="balanced"))]
+        ),
+        "random_forest": RandomForestClassifier(
+            n_estimators=120, random_state=42, class_weight="balanced_subsample", min_samples_leaf=3
+        ),
         "gradient_boosting": GradientBoostingClassifier(random_state=42),
     }
     # Optional strong tabular fraud baseline. LightGBM is fast on tabular fraud-style
     # data when installed. The demo remains deterministic when it is absent.
     try:
         from lightgbm import LGBMClassifier
+
         candidates["lightgbm_optional"] = LGBMClassifier(
-            n_estimators=80, learning_rate=0.06, num_leaves=31,
-            subsample=0.9, colsample_bytree=0.9, class_weight="balanced",
-            random_state=42, verbose=-1, n_jobs=2
+            n_estimators=80,
+            learning_rate=0.06,
+            num_leaves=31,
+            subsample=0.9,
+            colsample_bytree=0.9,
+            class_weight="balanced",
+            random_state=42,
+            verbose=-1,
+            n_jobs=2,
         )
     except Exception:
         pass

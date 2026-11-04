@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
@@ -14,7 +16,9 @@ def build_features_pandas(events: pd.DataFrame) -> pd.DataFrame:
     df["event_time"] = pd.to_datetime(df["event_time"])
     df = df.sort_values(["account_id_hash", "event_time", "event_id"]).reset_index(drop=True)
     df["amount_log"] = np.log1p(df["amount"].clip(lower=0))
-    df["cross_border_flag"] = (df.get("debtor_country", "UNK").astype(str) != df.get("creditor_country", "UNK").astype(str)).astype(int)
+    df["cross_border_flag"] = (
+        df.get("debtor_country", "UNK").astype(str) != df.get("creditor_country", "UNK").astype(str)
+    ).astype(int)
     df["rejected_flag"] = df["payment_status"].astype(str).isin(["RJCT", "PDNG", "REJECTED"]).astype(int)
 
     # Prior-only account features.
@@ -22,8 +26,12 @@ def build_features_pandas(events: pd.DataFrame) -> pd.DataFrame:
     df["txn_count_prior"] = g.cumcount()
     df["amount_sum_prior"] = g["amount"].cumsum() - df["amount"]
     df["failed_txn_count_prior"] = g["rejected_flag"].cumsum() - df["rejected_flag"]
-    df["failed_txn_rate_prior"] = np.where(df["txn_count_prior"] > 0, df["failed_txn_count_prior"] / df["txn_count_prior"], 0.0)
-    df["amount_mean_prior"] = np.where(df["txn_count_prior"] > 0, df["amount_sum_prior"] / df["txn_count_prior"], df["amount"].median())
+    df["failed_txn_rate_prior"] = np.where(
+        df["txn_count_prior"] > 0, df["failed_txn_count_prior"] / df["txn_count_prior"], 0.0
+    )
+    df["amount_mean_prior"] = np.where(
+        df["txn_count_prior"] > 0, df["amount_sum_prior"] / df["txn_count_prior"], df["amount"].median()
+    )
     df["amount_zscore_account"] = (df["amount"] - df["amount_mean_prior"]) / (df["amount"].std(ddof=0) + 1e-6)
 
     # Prior-only device and counterparty novelty.

@@ -1,10 +1,14 @@
 from __future__ import annotations
+
 import numpy as np
 import pandas as pd
+
 from src.modeling.metrics import evaluate_scores
 
 
-def run_score_stress_tests(preds: pd.DataFrame, score_col: str = "score_envelope_pruned", capacity_fraction: float = 0.05) -> dict:
+def run_score_stress_tests(
+    preds: pd.DataFrame, score_col: str = "score_envelope_pruned", capacity_fraction: float = 0.05
+) -> dict:
     """Small-data robustness checks for operational score behavior.
 
     These checks are intentionally lightweight and local-runnable. They do not

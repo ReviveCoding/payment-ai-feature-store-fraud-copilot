@@ -1,11 +1,22 @@
 from __future__ import annotations
-from pathlib import Path
+
 import sqlite3
+from pathlib import Path
+
 import pandas as pd
 
 ONLINE_COLUMNS = [
-    "event_id", "event_time", "account_id_hash", "amount", "rule_risk_prior", "txn_count_prior",
-    "failed_txn_rate_prior", "new_device_flag", "new_beneficiary_flag", "high_risk_corridor_flag", "rejected_flag"
+    "event_id",
+    "event_time",
+    "account_id_hash",
+    "amount",
+    "rule_risk_prior",
+    "txn_count_prior",
+    "failed_txn_rate_prior",
+    "new_device_flag",
+    "new_beneficiary_flag",
+    "high_risk_corridor_flag",
+    "rejected_flag",
 ]
 
 

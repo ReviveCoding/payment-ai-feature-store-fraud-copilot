@@ -1,7 +1,9 @@
 from __future__ import annotations
+
 import numpy as np
 import pandas as pd
 from sklearn.metrics import average_precision_score
+
 from src.modeling.metrics import evaluate_scores
 
 
@@ -33,7 +35,9 @@ def apply_residual_correction(preds: pd.DataFrame, capacity_fraction: float = 0.
         if util > best["utility"]:
             best = {"alpha": float(alpha), "utility": float(util), "metrics": metrics}
     df["score_residual_corrected"] = np.clip(best["alpha"] * model + (1 - best["alpha"]) * prior, 0, 1)
-    metrics = best["metrics"] or evaluate_scores(y, df["score_residual_corrected"].values, df["amount"].values, capacity_fraction)
+    metrics = best["metrics"] or evaluate_scores(
+        y, df["score_residual_corrected"].values, df["amount"].values, capacity_fraction
+    )
     metrics["selected_alpha"] = best["alpha"]
     metrics["base_score_column"] = model_col
     metrics["policy_utility"] = _score_for_utility(metrics)

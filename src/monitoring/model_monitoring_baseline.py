@@ -1,11 +1,16 @@
 from __future__ import annotations
+
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
+
 from src.utils import write_json
 
 
-def build_monitoring_baseline(train_df: pd.DataFrame, preds_df: pd.DataFrame, feature_names: list[str], out_dir: str | Path) -> dict:
+def build_monitoring_baseline(
+    train_df: pd.DataFrame, preds_df: pd.DataFrame, feature_names: list[str], out_dir: str | Path
+) -> dict:
     """Generate local Model-Monitor-style baseline statistics and constraints.
 
     The artifact is compatible with a governance review. It is not an actual

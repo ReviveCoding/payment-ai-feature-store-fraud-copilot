@@ -1,8 +1,9 @@
 from __future__ import annotations
-from pathlib import Path
+
 import json
 import os
 import sys
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -57,7 +58,9 @@ def run_audit() -> dict:
         "audit": "make audit" in ci_text or "local_runnable_audit.py" in ci_text,
     }
     report = {
-        "status": "PASS" if not missing and not suspicious and not large_files and all(ci_checks.values()) else "REVIEW",
+        "status": "PASS"
+        if not missing and not suspicious and not large_files and all(ci_checks.values())
+        else "REVIEW",
         "missing_required_files": missing,
         "suspicious_secret_like_files": suspicious,
         "large_files_over_25mb": large_files,
@@ -68,7 +71,9 @@ def run_audit() -> dict:
     }
     out = ROOT / "reports" / "local_github_runnable_audit.md"
     out.parent.mkdir(exist_ok=True)
-    out.write_text("# Local / GitHub Runnable Audit\n\n```json\n" + json.dumps(report, indent=2) + "\n```\n", encoding="utf-8")
+    out.write_text(
+        "# Local / GitHub Runnable Audit\n\n```json\n" + json.dumps(report, indent=2) + "\n```\n", encoding="utf-8"
+    )
     return report
 
 

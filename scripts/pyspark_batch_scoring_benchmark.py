@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import json
@@ -17,7 +17,6 @@ from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window
 
-
 ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "reports"
 OUTPUTS = ROOT / "outputs" / "spark_batch_benchmark"
@@ -28,8 +27,7 @@ MODELS = ROOT / "models"
 
 def make_spark(app_name: str) -> SparkSession:
     return (
-        SparkSession.builder
-        .appName(app_name)
+        SparkSession.builder.appName(app_name)
         .master("local[*]")
         .config("spark.sql.shuffle.partitions", "8")
         .config("spark.driver.memory", "4g")
@@ -50,8 +48,14 @@ def find_paysim_csv() -> Path:
 
 def add_features(df):
     required = [
-        "step", "type", "amount", "oldbalanceOrg", "newbalanceOrig",
-        "oldbalanceDest", "newbalanceDest", "isFraud"
+        "step",
+        "type",
+        "amount",
+        "oldbalanceOrg",
+        "newbalanceOrig",
+        "oldbalanceDest",
+        "newbalanceDest",
+        "isFraud",
     ]
     missing = [c for c in required if c not in df.columns]
     if missing:
@@ -109,6 +113,7 @@ def temporal_split(df):
 
     return train, val, test, train_end, val_end
 
+
 def add_class_weight(train):
     counts = train.groupBy("label").count().collect()
     count_map = {float(r["label"]): int(r["count"]) for r in counts}
@@ -126,16 +131,31 @@ def add_class_weight(train):
         "class_weight",
         F.when(F.col("label") == 1.0, F.lit(pos_weight)).otherwise(F.lit(neg_weight)),
     )
-    return weighted, {"positive_count": pos, "negative_count": neg, "positive_weight": pos_weight, "negative_weight": neg_weight}
+    return weighted, {
+        "positive_count": pos,
+        "negative_count": neg,
+        "positive_weight": pos_weight,
+        "negative_weight": neg_weight,
+    }
 
 
 def build_pipeline():
     categorical_cols = ["type"]
     numeric_cols = [
-        "step", "amount", "amount_log", "oldbalanceOrg", "newbalanceOrig",
-        "oldbalanceDest", "newbalanceDest", "orig_delta", "dest_delta",
-        "orig_balance_error", "dest_balance_error", "zero_orig_before",
-        "zero_dest_before", "high_amount_flag",
+        "step",
+        "amount",
+        "amount_log",
+        "oldbalanceOrg",
+        "newbalanceOrig",
+        "oldbalanceDest",
+        "newbalanceDest",
+        "orig_delta",
+        "dest_delta",
+        "orig_balance_error",
+        "dest_balance_error",
+        "zero_orig_before",
+        "zero_dest_before",
+        "high_amount_flag",
     ]
 
     type_indexer = StringIndexer(inputCol="type", outputCol="type_idx", handleInvalid="keep")
@@ -162,20 +182,14 @@ def build_pipeline():
 def evaluate_global(scored):
     scored_count = scored.count()
     if scored_count == 0:
-        raise ValueError(
-            "Scored evaluation dataset is empty. Increase --max-rows or inspect temporal split."
-        )
+        raise ValueError("Scored evaluation dataset is empty. Increase --max-rows or inspect temporal split.")
 
-    label_counts = {
-        float(r["label"]): int(r["count"])
-        for r in scored.groupBy("label").count().collect()
-    }
+    label_counts = {float(r["label"]): int(r["count"]) for r in scored.groupBy("label").count().collect()}
 
     scored_prob = scored.withColumn("score", vector_to_array("probability")[1])
 
     brier = (
-        scored_prob
-        .withColumn("sq_err", F.pow(F.col("label") - F.col("score"), 2))
+        scored_prob.withColumn("sq_err", F.pow(F.col("label") - F.col("score"), 2))
         .agg(F.avg("sq_err").alias("brier"))
         .collect()[0]["brier"]
     )
@@ -200,15 +214,11 @@ def evaluate_global(scored):
 
     return float(pr_auc), float(roc_auc), float(brier), scored_prob
 
+
 def capacity_metrics(scored_prob, capacities):
     total_rows = scored_prob.count()
     total_fraud = scored_prob.filter(F.col("label") == 1.0).count()
-    total_fraud_loss = (
-        scored_prob
-        .filter(F.col("label") == 1.0)
-        .agg(F.sum("amount").alias("loss"))
-        .collect()[0]["loss"]
-    )
+    total_fraud_loss = scored_prob.filter(F.col("label") == 1.0).agg(F.sum("amount").alias("loss")).collect()[0]["loss"]
     total_fraud_loss = float(total_fraud_loss or 0.0)
 
     rows = []
@@ -220,10 +230,7 @@ def capacity_metrics(scored_prob, capacities):
 
         reviewed_fraud = top.filter(F.col("label") == 1.0).count()
         captured_loss = (
-            top
-            .filter(F.col("label") == 1.0)
-            .agg(F.sum("amount").alias("captured_loss"))
-            .collect()[0]["captured_loss"]
+            top.filter(F.col("label") == 1.0).agg(F.sum("amount").alias("captured_loss")).collect()[0]["captured_loss"]
         )
         captured_loss = float(captured_loss or 0.0)
 
@@ -231,19 +238,21 @@ def capacity_metrics(scored_prob, capacities):
         recall = reviewed_fraud / total_fraud if total_fraud else 0.0
         loss_capture = captured_loss / total_fraud_loss if total_fraud_loss else 0.0
 
-        rows.append({
-            "capacity": cap,
-            "capacity_pct": int(cap * 100),
-            "top_k": k,
-            "precision_at_capacity": precision,
-            "recall_at_capacity": recall,
-            "fraud_loss_capture_rate": loss_capture,
-            "fraud_loss_captured": captured_loss,
-            "total_fraud_loss": total_fraud_loss,
-            "false_negative_loss": total_fraud_loss - captured_loss,
-            "reviewed_fraud_count": reviewed_fraud,
-            "true_fraud_count": total_fraud,
-        })
+        rows.append(
+            {
+                "capacity": cap,
+                "capacity_pct": int(cap * 100),
+                "top_k": k,
+                "precision_at_capacity": precision,
+                "recall_at_capacity": recall,
+                "fraud_loss_capture_rate": loss_capture,
+                "fraud_loss_captured": captured_loss,
+                "total_fraud_loss": total_fraud_loss,
+                "false_negative_loss": total_fraud_loss - captured_loss,
+                "reviewed_fraud_count": reviewed_fraud,
+                "true_fraud_count": total_fraud,
+            }
+        )
         top.unpersist()
 
     return rows
@@ -327,24 +336,23 @@ def main():
         model_path = MODELS / f"{run_id}_spark_pipeline_model"
 
         # Feature-store-style Parquet artifacts
-        (
-            features
-            .write
-            .mode("overwrite")
-            .partitionBy("type")
-            .parquet(str(feature_path))
-        )
+        (features.write.mode("overwrite").partitionBy("type").parquet(str(feature_path)))
 
         # Batch scoring artifact
         (
-            scored_prob
-            .select(
-                "step", "type", "amount", "label", "score",
-                "amount_log", "orig_delta", "dest_delta",
-                "orig_balance_error", "dest_balance_error",
+            scored_prob.select(
+                "step",
+                "type",
+                "amount",
+                "label",
+                "score",
+                "amount_log",
+                "orig_delta",
+                "dest_delta",
+                "orig_balance_error",
+                "dest_balance_error",
             )
-            .write
-            .mode("overwrite")
+            .write.mode("overwrite")
             .partitionBy("type")
             .parquet(str(scored_path))
         )
@@ -406,9 +414,11 @@ def main():
         md.append(f"- run_id: {run_id}")
         md.append(f"- source_csv: {csv_path}")
         md.append(f"- max_rows: {'full' if args.max_rows == 0 else args.max_rows}")
-        md.append(f"- Spark master: local[*]")
+        md.append("- Spark master: local[*]")
         md.append(f"- Python: {platform.python_version()}")
-        md.append(f"- claim boundary: public/proxy benchmark only; not JPMC data, proprietary bank data, or production deployment\n")
+        md.append(
+            "- claim boundary: public/proxy benchmark only; not JPMC data, proprietary bank data, or production deployment\n"
+        )
 
         md.append("## Dataset and Split\n")
         split_rows = [
@@ -422,28 +432,39 @@ def main():
         md.append(write_markdown_table(split_rows, ["split", "rows"]))
 
         md.append("\n## Global Test Metrics\n")
-        global_rows = [{
-            "pr_auc": pr_auc,
-            "roc_auc": roc_auc,
-            "brier": brier,
-            "train_seconds": train_seconds,
-            "score_seconds": score_seconds,
-            "runtime_seconds": runtime_seconds,
-        }]
-        md.append(write_markdown_table(
-            global_rows,
-            ["pr_auc", "roc_auc", "brier", "train_seconds", "score_seconds", "runtime_seconds"],
-        ))
+        global_rows = [
+            {
+                "pr_auc": pr_auc,
+                "roc_auc": roc_auc,
+                "brier": brier,
+                "train_seconds": train_seconds,
+                "score_seconds": score_seconds,
+                "runtime_seconds": runtime_seconds,
+            }
+        ]
+        md.append(
+            write_markdown_table(
+                global_rows,
+                ["pr_auc", "roc_auc", "brier", "train_seconds", "score_seconds", "runtime_seconds"],
+            )
+        )
 
         md.append("\n## Capacity Sweep Metrics\n")
-        md.append(write_markdown_table(
-            cap_rows,
-            [
-                "capacity_pct", "top_k", "precision_at_capacity", "recall_at_capacity",
-                "fraud_loss_capture_rate", "false_negative_loss",
-                "reviewed_fraud_count", "true_fraud_count",
-            ],
-        ))
+        md.append(
+            write_markdown_table(
+                cap_rows,
+                [
+                    "capacity_pct",
+                    "top_k",
+                    "precision_at_capacity",
+                    "recall_at_capacity",
+                    "fraud_loss_capture_rate",
+                    "false_negative_loss",
+                    "reviewed_fraud_count",
+                    "true_fraud_count",
+                ],
+            )
+        )
 
         md.append("\n## Artifacts\n")
         md.append(f"- feature_store_parquet: `{feature_path.relative_to(ROOT)}`")
@@ -453,9 +474,15 @@ def main():
         md.append(f"- metrics_json: `{json_path.relative_to(ROOT)}`\n")
 
         md.append("## Resume-Safe Interpretation\n")
-        md.append("- This run provides a real local Spark/PySpark execution artifact for batch feature engineering, model training, scoring, Parquet output, and registry-style metadata.")
-        md.append("- It does not claim AWS EMR execution, SageMaker training execution, real bank data, JPMC data, or production deployment.")
-        md.append("- Use this as supporting evidence for PySpark-compatible distributed processing and feature-store-style batch scoring.\n")
+        md.append(
+            "- This run provides a real local Spark/PySpark execution artifact for batch feature engineering, model training, scoring, Parquet output, and registry-style metadata."
+        )
+        md.append(
+            "- It does not claim AWS EMR execution, SageMaker training execution, real bank data, JPMC data, or production deployment."
+        )
+        md.append(
+            "- Use this as supporting evidence for PySpark-compatible distributed processing and feature-store-style batch scoring.\n"
+        )
 
         report_path.write_text("\n".join(md) + "\n", encoding="utf-8")
 
@@ -490,16 +517,21 @@ See `reports/spark_pyspark_batch_scoring_report.md`.
 """
         readme_path.write_text(readme, encoding="utf-8")
 
-        print(json.dumps({
-            "status": "ok",
-            "run_id": run_id,
-            "report": str(report_path),
-            "registry": str(registry_path),
-            "feature_store": str(feature_path),
-            "scored_batch": str(scored_path),
-            "model": str(model_path),
-            "metrics": metrics,
-        }, indent=2))
+        print(
+            json.dumps(
+                {
+                    "status": "ok",
+                    "run_id": run_id,
+                    "report": str(report_path),
+                    "registry": str(registry_path),
+                    "feature_store": str(feature_path),
+                    "scored_batch": str(scored_path),
+                    "model": str(model_path),
+                    "metrics": metrics,
+                },
+                indent=2,
+            )
+        )
 
     finally:
         spark.stop()

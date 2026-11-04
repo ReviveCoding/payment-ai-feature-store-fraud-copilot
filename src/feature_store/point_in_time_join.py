@@ -1,10 +1,21 @@
 from __future__ import annotations
+
 import pandas as pd
 
 MODEL_FEATURES = [
-    "amount", "amount_log", "cross_border_flag", "rule_risk_prior", "txn_count_prior",
-    "amount_sum_prior", "failed_txn_rate_prior", "amount_zscore_account", "new_device_flag",
-    "new_beneficiary_flag", "high_risk_corridor_flag", "rejected_flag", "processing_time_secs"
+    "amount",
+    "amount_log",
+    "cross_border_flag",
+    "rule_risk_prior",
+    "txn_count_prior",
+    "amount_sum_prior",
+    "failed_txn_rate_prior",
+    "amount_zscore_account",
+    "new_device_flag",
+    "new_beneficiary_flag",
+    "high_risk_corridor_flag",
+    "rejected_flag",
+    "processing_time_secs",
 ]
 
 

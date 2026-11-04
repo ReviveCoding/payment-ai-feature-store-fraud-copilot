@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 import pandas as pd
+
 from src.modeling.metrics import evaluate_scores
 
 
@@ -14,7 +16,9 @@ def simulate_policy_scenarios(preds: pd.DataFrame, capacity_fraction: float = 0.
     for name, col in scenarios.items():
         if col not in preds.columns:
             continue
-        metrics = evaluate_scores(preds["risk_label"].values, preds[col].values, preds["amount"].values, capacity_fraction)
+        metrics = evaluate_scores(
+            preds["risk_label"].values, preds[col].values, preds["amount"].values, capacity_fraction
+        )
         metrics["scenario"] = name
         rows.append(metrics)
     out = pd.DataFrame(rows)
